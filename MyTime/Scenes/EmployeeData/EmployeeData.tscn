@@ -1,0 +1,230 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/EmployeeData/EmployeeData.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/HelperScenes/DataLine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/HelperScenes/DateLine.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/EmployeeData/HBoxContainer.gd" type="Script" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends HBoxContainer
+
+func _ready():
+	pass
+
+func get_data():
+	var dict = Dictionary()
+	
+	dict[\"canRemoteLogIn\"] = 1 if $CheckBox2.pressed else 0
+	dict[\"canRemoteReport\"]= 1 if $CheckBox.pressed else 0
+	
+	return dict"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends CheckBox
+
+func get_data():
+	var dict = Dictionary()
+	
+	dict[\"active\"] = 1 if self.pressed else 0
+	
+	return dict"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Button
+
+func _ready():
+	pass
+
+
+func _on_HBoxContainer_pin_status(value):
+	set_disabled(not value)
+	pass # Replace with function body.
+"
+
+[node name="EmployeeData" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource( 1 )
+
+[node name="WindowDialog" type="WindowDialog" parent="."]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -166.0
+margin_top = -154.0
+margin_right = 166.0
+margin_bottom = 174.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="WindowDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="WindowDialog/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 327.0
+margin_bottom = 323.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WindowDialog/MarginContainer/VBoxContainer2"]
+margin_right = 322.0
+margin_bottom = 254.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[node name="Control" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 322.0
+margin_bottom = 24.0
+line_string = "First Name"
+
+[node name="Control2" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 28.0
+margin_right = 322.0
+margin_bottom = 52.0
+line_string = "Last Name"
+key = "last_name"
+
+[node name="Control3" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 56.0
+margin_right = 322.0
+margin_bottom = 80.0
+line_string = "Position"
+key = "position"
+
+[node name="Control4" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 84.0
+margin_right = 322.0
+margin_bottom = 108.0
+line_string = "Phone #"
+key = "phone"
+
+[node name="Control5" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 112.0
+margin_right = 322.0
+margin_bottom = 136.0
+line_string = "Email"
+key = "email"
+
+[node name="DateLine" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 140.0
+margin_right = 322.0
+margin_bottom = 170.0
+date_title = "Start Date: "
+key = "startDate"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer"]
+editor/display_folded = true
+margin_top = 174.0
+margin_right = 322.0
+margin_bottom = 198.0
+script = ExtResource( 4 )
+
+[node name="DataLine" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 112.0
+margin_bottom = 24.0
+line_string = "Pin"
+key = "pin"
+for_pin = true
+
+[node name="DataLine2" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 116.0
+margin_right = 228.0
+margin_bottom = 24.0
+line_string = "Re-enter"
+key = "pin"
+for_pin = true
+
+[node name="Label" type="Label" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+margin_left = 232.0
+margin_top = 5.0
+margin_right = 299.0
+margin_bottom = 19.0
+text = "Mis-Match"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer"]
+editor/display_folded = true
+margin_left = 40.0
+margin_top = 202.0
+margin_right = 282.0
+margin_bottom = 226.0
+size_flags_horizontal = 6
+script = SubResource( 1 )
+
+[node name="CheckBox" type="CheckBox" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+margin_right = 124.0
+margin_bottom = 24.0
+pressed = true
+text = "Remote Report"
+
+[node name="CheckBox2" type="CheckBox" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+margin_left = 128.0
+margin_right = 242.0
+margin_bottom = 24.0
+text = "Remote Time"
+
+[node name="CheckBox" type="CheckBox" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer"]
+margin_left = 93.0
+margin_top = 230.0
+margin_right = 228.0
+margin_bottom = 254.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+pressed = true
+text = "Employee Active"
+script = SubResource( 2 )
+
+[node name="AdminPin" parent="WindowDialog/MarginContainer/VBoxContainer2" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 105.0
+margin_top = 258.0
+margin_right = 217.0
+margin_bottom = 282.0
+size_flags_horizontal = 4
+line_string = "Admin Pin"
+key = "pin"
+for_pin = true
+
+[node name="Button" type="Button" parent="WindowDialog/MarginContainer/VBoxContainer2"]
+margin_left = 109.0
+margin_top = 288.0
+margin_right = 213.0
+margin_bottom = 318.0
+rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 4
+size_flags_vertical = 8
+disabled = true
+text = "Add Employee"
+script = SubResource( 3 )
+[connection signal="popup_hide" from="WindowDialog" to="." method="_on_WindowDialog_popup_hide"]
+[connection signal="pin_status" from="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" to="WindowDialog/MarginContainer/VBoxContainer2/Button" method="_on_HBoxContainer_pin_status"]
+[connection signal="pin_changed" from="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/DataLine" to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" method="_on_DataLine_pin_changed"]
+[connection signal="pin_changed" from="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/DataLine2" to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" method="_on_DataLine2_pin_changed"]
+[connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer2/Button" to="." method="_on_Button_pressed"]

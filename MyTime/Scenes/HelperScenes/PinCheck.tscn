@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/HelperScenes/PinCheck.gd" type="Script" id=1]
+
+[node name="PinCheck" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 443.0
+margin_top = 246.0
+margin_right = -443.0
+margin_bottom = -246.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 131.0
+margin_bottom = 101.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 124.0
+margin_bottom = 14.0
+text = "Enter Pin"
+align = 1
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+margin_left = 33.0
+margin_top = 18.0
+margin_right = 91.0
+margin_bottom = 42.0
+size_flags_horizontal = 4
+align = 1
+max_length = 4
+secret = true
+clear_button_enabled = true
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer"]
+margin_left = 15.0
+margin_top = 46.0
+margin_right = 109.0
+margin_bottom = 70.0
+size_flags_horizontal = 4
+text = "Admin Pin"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 74.0
+margin_right = 124.0
+margin_bottom = 94.0
+
+[node name="ButtonEnter" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_right = 60.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 20 )
+size_flags_horizontal = 3
+text = "Enter"
+
+[node name="ButtonCancel" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 64.0
+margin_right = 124.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 20 )
+text = "Cancel"
+[connection signal="toggled" from="VBoxContainer/CheckBox" to="." method="_on_CheckBox_toggled"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ButtonEnter" to="." method="_on_ButtonEnter_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ButtonCancel" to="." method="_on_ButtonCancel_pressed"]

@@ -1,0 +1,158 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.25098, 0.25098, 0.25098, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends HBoxContainer
+
+func _on_EmployeeDataHolder_update_data(employee):
+	$LabelName.set_text(employee[\"first_name\"] + \" \" + employee[\"last_name\"])
+"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends HBoxContainer
+
+func _ready():
+	pass
+
+
+func _on_EmployeeDataHolder_update_data(employee):
+	$LabelEID.set_text(str(employee[\"eid\"]))
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends Button
+
+func _ready():
+	pass
+
+
+func _on_EmployeeDataHolder_update_button_text(text):
+	set_text(text)
+	pass # Replace with function body.
+"
+
+[node name="EmployeeDataHolder" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -724.0
+margin_bottom = -550.0
+rect_min_size = Vector2( 300, 50 )
+size_flags_horizontal = 2
+size_flags_vertical = 2
+script = ExtResource( 1 )
+button_mode = 2
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panelf = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 100, 40 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 295.0
+margin_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 226.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+editor/display_folded = true
+margin_right = 226.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = SubResource( 5 )
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_top = 3.0
+margin_right = 46.0
+margin_bottom = 17.0
+text = "Name: "
+align = 1
+valign = 1
+
+[node name="LabelName" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 50.0
+margin_top = 3.0
+margin_right = 131.0
+margin_bottom = 17.0
+text = "John Deisher"
+valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 20.0
+margin_right = 226.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = SubResource( 6 )
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_top = 3.0
+margin_right = 30.0
+margin_bottom = 17.0
+text = "EID: "
+align = 1
+valign = 1
+
+[node name="LabelEID" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 34.0
+margin_top = 3.0
+margin_right = 66.0
+margin_bottom = 17.0
+text = "XXXX"
+valign = 1
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_left = 230.0
+margin_top = 5.0
+margin_right = 290.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 60, 30 )
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "Update"
+script = SubResource( 4 )
+[connection signal="update_button_text" from="." to="MarginContainer/HBoxContainer/Button" method="_on_EmployeeDataHolder_update_button_text"]
+[connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" method="_on_EmployeeDataHolder_update_data"]
+[connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" method="_on_EmployeeDataHolder_update_data"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]

@@ -11,16 +11,16 @@ var connected = false
 
 var TestEmployee = {
 		"eid":1000,
-		"first_name":"",
-		"last_name":"",
-		"position":"",
-		"pin":"",
-		"startDate":"",
-		"phone":"",
-		"email":"",
+		"first_name":"John",
+		"last_name":"Deisher",
+		"position":"Developer",
+		"pin":"1234",
+		"startDate":"null",
+		"phone":"null",
+		"email":"null",
 		"canRemoteReport":1,
 		"canRemoteLogIn":1,
-		"active":0
+		"active":1
 	}
 
 func _ready():
@@ -50,7 +50,24 @@ func _ready():
 	
 	result = db.query(query)
 	
+	if settings.get_admin_pin() == "0000":
+		query = "INSERT INTO users (eid, first_name, last_name, position, pin, startDate, phone, email, canRemoteReport, canRemoteLogIn, active) VALUES ('"
+		query += str(TestEmployee['eid']) + "','" 
+		query += TestEmployee['first_name'] + "','" 
+		query += TestEmployee['last_name'] + "','" 
+		query += TestEmployee['position'] + "','" 
+		query += TestEmployee['pin'] + "','" 
+		query += TestEmployee['startDate'] + "','"
+		query += TestEmployee['phone'] + "','" 
+		query += TestEmployee['email'] + "'," 
+		query += str(TestEmployee['canRemoteReport']) + "," 
+		query += str(TestEmployee['canRemoteLogIn']) + "," 
+		query += str(TestEmployee['active']) + ")"
+
+		result = db.query(query) #add employee to DB
 	
+	#addEmployee(TestEmployee)
+	#print(getEmployee(1000))
 	#get_tree().add_child(newPin)
 		
 	#addEmployee(TestEmployee)
@@ -84,8 +101,8 @@ func addEmployee(employee):
 	#employee is going to be a json data set
 	
 	query = "SELECT * FROM users WHERE " 
-	if employee["eid"] != null:
-		query += "eid = '" + str(employee["eid"]) + "' OR "
+#	if employee["eid"] != null:
+#		query += "eid = '" + str(employee["eid"]) + "' OR "
 	query += "(first_name = '" + employee["first_name"] + "' "
 	query += "AND last_name = '" + employee["last_name"] + "')"
 
@@ -103,7 +120,7 @@ func addEmployee(employee):
 	query += employee['last_name'] + "','" 
 	query += employee['position'] + "','" 
 	query += employee['pin'] + "','" 
-	query += employee['startDate'] + "','"
+	query += str(employee['startDate']) + "','"
 	query += employee['phone'] + "','" 
 	query += employee['email'] + "'," 
 	query += str(employee['canRemoteReport']) + "," 
@@ -151,14 +168,16 @@ func updateEmployee(employee):
 func getEmployee(eid):
 	query = "SELECT * FROM users WHERE eid = " + str(eid)
 	result = db.fetch_array(query)
+	if len(result) == 0: return null
+	
 	return result[0]
 	pass
 	
 func getEmployeeList(_active = true):
 	if _active:
-		query = "SELECT * FROM users WHERE active = 1"
+		query = "SELECT * FROM users WHERE (eid != 999 and active = 1)"
 	else:
-		query = "SELECT * FROM users"
+		query = "SELECT * FROM users WHERE eid != 999"
 		
 	result = db.fetch_array(query)
 	return result
@@ -209,6 +228,7 @@ func checkStatus(eid):
 	result = db.fetch_array(query)
 	
 	if result == null or len(result) == 0:
+		#False means the employee is signed out
 		return false
-	return true
+	return true #True is signed in
 	

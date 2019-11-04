@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 settings="*res://Scripts/SettingsManager.gd"
+dbManager="*res://Scripts/dbManager.gd"
 
 [rendering]
 

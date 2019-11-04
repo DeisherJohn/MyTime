@@ -17,6 +17,7 @@ var _settings = {
 
 func _ready():
 	load_settings()
+	OS.set_low_processor_usage_mode(true) 
 
 
 func set_admin_pin(pin):
@@ -24,6 +25,9 @@ func set_admin_pin(pin):
 
 func get_admin_pin():
 	return _settings["hidden"]["admin_pin"]
+	
+func get_date_format():
+	return _settings["date"]["format"]
 
 func save_settings():
 	for section in _settings.keys():

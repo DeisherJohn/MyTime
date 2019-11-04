@@ -16,6 +16,7 @@ func _ready():
 func _on_Control_add_new_employee():
 	var employee_panel = load("res://Scenes/EmployeeData/EmployeeData.tscn")
 	var new_emp = employee_panel.instance()
+	new_emp.connect_update_list(self)
 	add_child(new_emp)
 	pass # Replace with function body.
 
@@ -25,3 +26,8 @@ func kill(obj):
 func update_employee_list():
 	emit_signal("update_list")
 	pass
+
+func _on_Control_update_employees():
+	var updateList = load("res://Scenes/UpdateEmployeeList/UpdateList.tscn")
+	get_parent().add_child(updateList.instance())
+	pass # Replace with function body.

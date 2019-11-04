@@ -16,14 +16,14 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=3]
 script/source = "extends HBoxContainer
 
 func _on_EmployeeDataHolder_update_data(employee):
 	$LabelName.set_text(employee[\"first_name\"] + \" \" + employee[\"last_name\"])
 "
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=4]
 script/source = "extends HBoxContainer
 
 func _ready():
@@ -35,7 +35,7 @@ func _on_EmployeeDataHolder_update_data(employee):
 	pass # Replace with function body.
 "
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=5]
 script/source = "extends Button
 
 func _ready():
@@ -99,7 +99,7 @@ margin_right = 226.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = SubResource( 5 )
+script = SubResource( 3 )
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 margin_top = 3.0
@@ -124,7 +124,7 @@ margin_right = 226.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = SubResource( 6 )
+script = SubResource( 4 )
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
 margin_top = 3.0
@@ -151,7 +151,7 @@ rect_min_size = Vector2( 60, 30 )
 size_flags_horizontal = 8
 size_flags_vertical = 4
 text = "Update"
-script = SubResource( 4 )
+script = SubResource( 5 )
 [connection signal="update_button_text" from="." to="MarginContainer/HBoxContainer/Button" method="_on_EmployeeDataHolder_update_button_text"]
 [connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" method="_on_EmployeeDataHolder_update_data"]
 [connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" method="_on_EmployeeDataHolder_update_data"]

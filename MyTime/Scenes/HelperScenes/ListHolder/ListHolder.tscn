@@ -13,6 +13,7 @@ export var title : String = \"TITLE\"
 export(BUTTON_TYPE) var list_type : int
 
 var employeeCard = preload(\"res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.tscn\")
+var employeeData = preload(\"res://Scenes/EmployeeData/EmployeeData.tscn\")
 var PinCheck = preload(\"res://Scenes/HelperScenes/PinCheck.tscn\")
 var selectedEmployee = null
 
@@ -71,6 +72,11 @@ func check_clear(goodPin = false):
 				emit_signal(\"update_list\")
 				add_employees()
 			BUTTON_TYPE.UPDATE:
+				var updateEmpData = employeeData.instance()
+				get_parent().add_child(updateEmpData)
+				updateEmpData.set_data(selectedEmployee)
+				updateEmpData.set_to_update()
+#				updateEmpData.up
 				#TODO: Need to call for update panel
 				pass
 	else:
@@ -89,11 +95,11 @@ list_type = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 308.0
+margin_right = 319.0
 margin_bottom = 593.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 301.0
+margin_right = 312.0
 margin_bottom = 14.0
 text = "Title"
 align = 1
@@ -101,19 +107,20 @@ valign = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 18.0
-margin_right = 301.0
+margin_right = 312.0
 margin_bottom = 22.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 26.0
-margin_right = 301.0
+margin_right = 312.0
 margin_bottom = 586.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
-margin_right = 300.0
+margin_left = 6.0
+margin_right = 306.0
 margin_bottom = 50.0
 size_flags_horizontal = 6
 

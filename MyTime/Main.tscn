@@ -16,23 +16,25 @@ margin_right = 0.0
 margin_bottom = 0.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+editor/display_folded = true
 anchor_bottom = 1.0
 margin_right = 246.0
 
 [node name="ListHolder" parent="HBoxContainer" instance=ExtResource( 3 )]
 anchor_bottom = 0.0
-margin_right = 314.0
+margin_right = 315.0
 margin_bottom = 600.0
 list_type = 0
 
 [node name="ListHolder2" parent="HBoxContainer" instance=ExtResource( 3 )]
 anchor_bottom = 0.0
-margin_left = 318.0
-margin_right = 632.0
+margin_left = 319.0
+margin_right = 634.0
 margin_bottom = 600.0
 title = "Signed In"
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder" method="add_employees"]
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="add_new_employee" from="Control" to="." method="_on_Control_add_new_employee"]
+[connection signal="update_employees" from="Control" to="." method="_on_Control_update_employees"]
 [connection signal="update_list" from="HBoxContainer/ListHolder" to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="update_list" from="HBoxContainer/ListHolder2" to="HBoxContainer/ListHolder" method="add_employees"]

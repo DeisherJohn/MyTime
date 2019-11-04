@@ -2,11 +2,21 @@ extends Control
 
 export var update_employee : bool
 
+signal set_data(employee)
+signal update_list()
+
+var eid = null
+
 func _ready():
-	
-	if update_employee:
-		$WindowDialog/MarginContainer/VBoxContainer2/Button.set_text("Update Employee")
 	$WindowDialog.popup_centered()
+#	set_data(dbManager.getEmployee(1000))
+
+func connect_update_list(target):
+	connect("update_list", target, "update_employee_list")
+	
+func set_to_update():
+	update_employee = true
+	$WindowDialog/MarginContainer/VBoxContainer2/Button.set_text("Update Employee")
 	
 	
 func pull_data():
@@ -19,11 +29,19 @@ func pull_data():
 		
 		for key in temp.keys():
 			employee[key] = temp[key]
-			
+	
+	employee["eid"] = eid
 	return employee
+	
+func set_data(employee):
+	emit_signal("set_data", employee)
+	eid = employee["eid"]
+	pass
 
 func _on_Button_pressed():
 	var admin_pin = $WindowDialog/MarginContainer/VBoxContainer2/AdminPin.get_data() 
+	if admin_pin == null: return
+	
 	var employee = null
 	if admin_pin["pin"] == settings.get_admin_pin():
 		employee = pull_data()
@@ -37,8 +55,12 @@ func _on_Button_pressed():
 	if employee == null:
 		print("Employee was missing data")
 	else:
-		dbManager.addEmployee(employee) 
-		get_parent().update_employee_list()
+		if update_employee:
+			dbManager.updateEmployee(employee)
+		else:
+			dbManager.addEmployee(employee) 
+			
+		emit_signal("update_list")
 		
 	queue_free()
 	pass # Replace with function body.

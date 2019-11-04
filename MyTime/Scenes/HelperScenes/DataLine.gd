@@ -15,7 +15,10 @@ func _ready():
 
 
 func set_data(data):
-	$LineEdit.set_text(data[key])
+	$LineEdit.set_text(str(data[key]))
+	
+	if for_pin:
+		emit_signal("pin_changed", str(data[key]))
 	
 func get_data():
 	var dict = Dictionary()
@@ -31,3 +34,4 @@ func _on_LineEdit_text_changed(new_text):
 	if for_pin:
 		emit_signal("pin_changed", new_text)
 	pass # Replace with function body.
+

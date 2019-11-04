@@ -17,7 +17,12 @@ func get_data():
 		dict[key] = temp[key]
 		
 	return dict
-	
+
+func set_data(employee):
+	$DataLine.set_data(employee)
+	$DataLine2.set_data(employee)
+	pins_match()
+	pass
 
 func pins_match():
 	if pin1 == pin2 and len(pin1) == 4 and pin1.is_valid_integer():

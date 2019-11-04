@@ -17,7 +17,11 @@ func get_data():
 	dict[\"canRemoteLogIn\"] = 1 if $CheckBox2.pressed else 0
 	dict[\"canRemoteReport\"]= 1 if $CheckBox.pressed else 0
 	
-	return dict"
+	return dict
+	
+func set_data(employee):
+	$CheckBox.pressed = true if employee[\"canRemoteReport\"] == 1 else false
+	$CheckBox2.pressed = true if employee[\"canRemoteLogIn\"] == 1 else false"
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends CheckBox
@@ -26,8 +30,10 @@ func get_data():
 	var dict = Dictionary()
 	
 	dict[\"active\"] = 1 if self.pressed else 0
+	return dict
 	
-	return dict"
+func set_data(employee):
+	self.pressed = true if employee[\"active\"] == 1 else false"
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends Button
@@ -49,6 +55,7 @@ anchor_bottom = 0.5
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource( 1 )
+update_employee = false
 
 [node name="WindowDialog" type="WindowDialog" parent="."]
 visible = true
@@ -136,7 +143,6 @@ date_title = "Start Date: "
 key = "startDate"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer"]
-editor/display_folded = true
 margin_top = 174.0
 margin_right = 322.0
 margin_bottom = 198.0
@@ -223,6 +229,16 @@ size_flags_vertical = 8
 disabled = true
 text = "Add Employee"
 script = SubResource( 3 )
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/CheckBox" method="set_data"]
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/CheckBox" method="_on_EmployeeData_set_data"]
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/Control3" method="set_data"]
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/Control5" method="set_data"]
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/DateLine" method="set_date"]
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer2" method="set_data"]
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/Control" method="set_data"]
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/Control2" method="set_data"]
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/Control4" method="set_data"]
+[connection signal="set_data" from="." to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" method="set_data"]
 [connection signal="popup_hide" from="WindowDialog" to="." method="_on_WindowDialog_popup_hide"]
 [connection signal="pin_status" from="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" to="WindowDialog/MarginContainer/VBoxContainer2/Button" method="_on_HBoxContainer_pin_status"]
 [connection signal="pin_changed" from="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/DataLine" to="WindowDialog/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer" method="_on_DataLine_pin_changed"]

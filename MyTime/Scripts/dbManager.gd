@@ -156,7 +156,7 @@ func updateEmployee(employee):
 	query += "last_name='" + employee['last_name'] + "'," 
 	query += "position='" + employee['position'] + "'," 
 	query += "pin='" + employee['pin'] + "'," 
-	query += "startDate='" + employee['startDate'] + "',"
+	query += "startDate='" + str(employee['startDate']) + "',"
 	query += "phone='" + employee['phone'] + "'," 
 	query += "email='" + employee['email'] + "'," 
 	query += "canRemoteReport=" + str(employee['canRemoteReport']) + "," 

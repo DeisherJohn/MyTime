@@ -35,12 +35,13 @@ func _ready():
 func set_date(date = null):
 	if date == null:
 		date = OS.get_date()
+	else:
+		date = OS.get_datetime_from_unix_time(int(date["startDate"]))
 	
 	day.set_text(str(date["day"]))
 	month.set_text(str(date["month"]))
 		
 	$HBoxContainer/LineEdit3.set_text(str(date["year"]))
-	get_date()
 
 
 func _on_Button_pressed():

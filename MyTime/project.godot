@@ -18,6 +18,10 @@ _global_script_class_icons={
 config/name="MyTime"
 config/icon="res://icon.png"
 
+[autoload]
+
+settings="*res://Scripts/SettingsManager.gd"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

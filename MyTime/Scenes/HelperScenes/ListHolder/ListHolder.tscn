@@ -32,7 +32,7 @@ func add_employee_card(employee):
 	pass
 	
 func add_employees():
-	var active = true if list_type == BUTTON_TYPE.UPDATE else false
+	var active = false if list_type == BUTTON_TYPE.UPDATE else true
 	var employees = dbManager.getEmployeeList(active)
 	
 	for child in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():

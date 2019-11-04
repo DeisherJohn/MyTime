@@ -29,5 +29,5 @@ func update_employee_list():
 
 func _on_Control_update_employees():
 	var updateList = load("res://Scenes/UpdateEmployeeList/UpdateList.tscn")
-	get_parent().add_child(updateList.instance())
+	add_child(updateList.instance())
 	pass # Replace with function body.

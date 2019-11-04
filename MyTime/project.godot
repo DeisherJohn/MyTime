@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 settings="*res://Scripts/SettingsManager.gd"
 dbManager="*res://Scripts/dbManager.gd"
+FileManager="*res://Scripts/FileManager.gd"
 
 [rendering]
 

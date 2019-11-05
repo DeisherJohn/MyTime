@@ -4,7 +4,6 @@ signal update_list()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("MAIN WINDOW")
 	settings.load_settings(self)
 	pass # Replace with function body.
 
@@ -34,7 +33,6 @@ func _on_Control_update_employees():
 
 
 func _on_Control_gen_single_report():
-	print("REPORT")
 	var single_report = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
 	add_child(single_report.instance())
 	pass # Replace with function body.
@@ -48,7 +46,6 @@ func _on_Control_gen_all_report():
 	pass # Replace with function body.
 	
 func make_file(file_loc, start = 0, end = null, simple = true):
-	print(file_loc)
 	if file_loc == null:
 		return
 	FileManager.generate_all_employee_files(file_loc, start, end, simple)

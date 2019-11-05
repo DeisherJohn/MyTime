@@ -15,7 +15,7 @@ export(BUTTON_TYPE) var list_type : int
 var employeeCard = preload(\"res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.tscn\")
 var employeeData = preload(\"res://Scenes/EmployeeData/EmployeeData.tscn\")
 var fileSelect = preload(\"res://Scenes/HelperScenes/FileSave.tscn\")
-var PinCheck = preload(\"res://Scenes/HelperScenes/PinCheck.tscn\")
+#var PinCheck = preload(\"res://Scenes/HelperScenes/PinCheck.tscn\")
 var selectedEmployee = null
 
 func _ready():
@@ -51,14 +51,15 @@ func add_employees():
 		
 		
 func employee_selected(employee):
-	print(employee)
-	
-	var checkPin = PinCheck.instance()
-	checkPin.pass_pin(employee)
 	selectedEmployee = employee
+	check_clear(true)
 	
-	add_child(checkPin)
-	checkPin.connect_signal(self)
+#	var checkPin = PinCheck.instance()
+#	checkPin.pass_pin(employee)
+#	selectedEmployee = employee
+#
+#	add_child(checkPin)
+#	checkPin.connect_signal(self)
 
 	
 func check_clear(goodPin = false):
@@ -90,7 +91,7 @@ func check_clear(goodPin = false):
 func make_file(file_loc, start = 0, end = null, simple = false):
 	if file_loc == null:
 		return
-	FileManager.generate_single_csv(selectedEmployee, file_loc, start, end)"
+	FileManager.generate_single_csv(selectedEmployee, file_loc, start, end, simple)"
 
 [node name="ListHolder" type="PanelContainer"]
 anchor_bottom = 1.0

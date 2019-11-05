@@ -36,4 +36,5 @@ func _on_CheckBox_toggled(button_pressed):
 	pass # Replace with function body.
 
 func connect_signal(target):
-	connect("pin_check", target, "check_clear")
+	var error = connect("pin_check", target, "check_clear")
+	if error: print("ERR: %s" % error)

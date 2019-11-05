@@ -49,7 +49,6 @@ func load_settings(main_window = null):
 	
 	
 	if main_window != null and get_admin_pin() == "0000":
-		print("NEED NEW ADMIN PIN")
 		var adminPinScene = load("res://Scenes/Admin_creator/AdminPin.tscn")
 		var create_pin = adminPinScene.instance()
 		main_window.add_child(create_pin)

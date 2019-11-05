@@ -16,8 +16,9 @@ func _ready():
 
 
 func connect_sig(target):
-	connect("file_loc", target, "make_file")
-
+	var error = connect("file_loc", target, "make_file")
+	if error: print("ERR: %s" % error)
+	
 func _on_FileDialog_file_selected(path):
 	confirmed = true
 	

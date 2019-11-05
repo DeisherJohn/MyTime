@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.gd" type="Script" id=1]
 
@@ -31,7 +31,19 @@ func _ready():
 
 
 func _on_EmployeeDataHolder_update_data(employee):
-	$LabelEID.set_text(str(employee[\"eid\"]))
+	$HBoxContainer/LabelEID.set_text(str(employee[\"eid\"]))
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends LineEdit
+
+func _ready():
+	pass
+
+
+func _on_Button_pressed():
+	set_text(\"\")
 	pass # Replace with function body.
 "
 
@@ -96,51 +108,69 @@ custom_constants/separation = 0
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 editor/display_folded = true
 margin_right = 226.0
-margin_bottom = 20.0
+margin_bottom = 16.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = SubResource( 3 )
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_top = 3.0
+margin_top = 1.0
 margin_right = 46.0
-margin_bottom = 17.0
+margin_bottom = 15.0
 text = "Name: "
 align = 1
 valign = 1
 
 [node name="LabelName" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 margin_left = 50.0
-margin_top = 3.0
+margin_top = 1.0
 margin_right = 131.0
-margin_bottom = 17.0
+margin_bottom = 15.0
 text = "John Deisher"
 valign = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-editor/display_folded = true
-margin_top = 20.0
+margin_top = 16.0
 margin_right = 226.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = SubResource( 4 )
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_top = 3.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 66.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+margin_top = 5.0
 margin_right = 30.0
-margin_bottom = 17.0
+margin_bottom = 19.0
 text = "EID: "
 align = 1
 valign = 1
 
-[node name="LabelEID" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="LabelEID" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
 margin_left = 34.0
-margin_top = 3.0
+margin_top = 5.0
 margin_right = 66.0
-margin_bottom = 17.0
+margin_bottom = 19.0
 text = "XXXX"
 valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 168.0
+margin_right = 226.0
+margin_bottom = 24.0
+size_flags_horizontal = 10
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+margin_right = 58.0
+margin_bottom = 24.0
+max_length = 4
+secret = true
+clear_button_enabled = true
+placeholder_text = "pin"
+script = SubResource( 6 )
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_left = 230.0
@@ -153,6 +183,8 @@ size_flags_vertical = 4
 text = "Update"
 script = SubResource( 5 )
 [connection signal="update_button_text" from="." to="MarginContainer/HBoxContainer/Button" method="_on_EmployeeDataHolder_update_button_text"]
-[connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" method="_on_EmployeeDataHolder_update_data"]
 [connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" method="_on_EmployeeDataHolder_update_data"]
+[connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" method="_on_EmployeeDataHolder_update_data"]
+[connection signal="text_changed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" method="_on_Button_pressed"]

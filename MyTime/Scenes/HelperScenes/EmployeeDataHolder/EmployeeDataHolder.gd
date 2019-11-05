@@ -1,6 +1,6 @@
 extends Control
 
-enum button_type {SIGN_IN = 0, SIGN_OUT = 1, UPDATE = 2}
+enum button_type {SIGN_IN = 0, SIGN_OUT = 1, UPDATE = 2, REPORT = 3}
 
 export(button_type) var button_mode : int
 
@@ -23,6 +23,8 @@ func set_button_text(mode = 0):
 		button_type.SIGN_OUT:
 			emit_signal("update_button_text", "Sign Out")
 		button_type.UPDATE:
+			emit_signal("update_button_text", "Select")
+		button_type.REPORT:
 			emit_signal("update_button_text", "Select")
 			
 func set_data(employee):

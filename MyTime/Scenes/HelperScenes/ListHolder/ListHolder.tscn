@@ -7,13 +7,14 @@ script/source = "extends PanelContainer
 
 signal update_list()
 
-enum BUTTON_TYPE {SIGN_IN, SIGN_OUT, UPDATE}
+enum BUTTON_TYPE {SIGN_IN, SIGN_OUT, UPDATE, REPORT}
 
 export var title : String = \"TITLE\"
 export(BUTTON_TYPE) var list_type : int
 
 var employeeCard = preload(\"res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.tscn\")
 var employeeData = preload(\"res://Scenes/EmployeeData/EmployeeData.tscn\")
+var fileSelect = preload(\"res://Scenes/HelperScenes/FileSave.tscn\")
 var PinCheck = preload(\"res://Scenes/HelperScenes/PinCheck.tscn\")
 var selectedEmployee = null
 
@@ -44,7 +45,7 @@ func add_employees():
 			pass
 		elif not dbManager.checkStatus(employee[\"eid\"]) and list_type == BUTTON_TYPE.SIGN_IN:
 			add_employee_card(employee)
-		elif list_type == BUTTON_TYPE.UPDATE:
+		elif list_type == BUTTON_TYPE.UPDATE or list_type == BUTTON_TYPE.REPORT:
 			add_employee_card(employee)
 		pass
 		
@@ -76,13 +77,20 @@ func check_clear(goodPin = false):
 				get_parent().add_child(updateEmpData)
 				updateEmpData.set_data(selectedEmployee)
 				updateEmpData.set_to_update()
-#				updateEmpData.up
-				#TODO: Need to call for update panel
+			BUTTON_TYPE.REPORT:
+				#pull up a list that can be used to make a report
+				var file = fileSelect.instance()
+				add_child(file)
+				file.connect_sig(self)
 				pass
 	else:
 		print(\"BOO\")
 
-		"
+
+func make_file(file_loc, start = 0, end = null, simple = false):
+	if file_loc == null:
+		return
+	FileManager.generate_single_csv(selectedEmployee, file_loc, start, end)"
 
 [node name="ListHolder" type="PanelContainer"]
 anchor_bottom = 1.0

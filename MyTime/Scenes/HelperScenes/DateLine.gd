@@ -31,7 +31,6 @@ func _ready():
 			month = $HBoxContainer/LineEdit2
 
 
-
 func set_date(date = null):
 	if date == null:
 		date = OS.get_date()

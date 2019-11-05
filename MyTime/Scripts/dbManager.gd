@@ -184,7 +184,8 @@ func getEmployeeList(_active = true):
 	pass
 
 func logEmplyoeeTime(eid, time = null, fromRemote = false):
-	if time == null: time = OS.get_unix_time()
+	if time == null: 
+		time = get_time_offset(OS.get_datetime())
 		
 	#Check to see if employee can track time.
 	if not canEmployeeLogTime(eid, fromRemote): return false
@@ -208,7 +209,7 @@ func logEmplyoeeTime(eid, time = null, fromRemote = false):
 
 func getShiftTimes(eid, start = 0, end = null, itemLimit = null):
 	if end == null:
-		end = OS.get_unix_time()
+		end = get_time_offset(OS.get_datetime())
 		
 	var employeeTable = getEmployeeTableName(eid)
 	
@@ -231,4 +232,16 @@ func checkStatus(eid):
 		#False means the employee is signed out
 		return false
 	return true #True is signed in
+	
+
+func get_time_offset(time):
+	var hour = time["hour"]
+	var minute = time["minute"]
+	time["hour"] = 0
+	time["minute"] = 0
+	time["second"] = 0
+	time = OS.get_unix_time_from_datetime(time)
+	
+	time += (hour * 60 * 60) + (minute * 60)
+	return time
 	

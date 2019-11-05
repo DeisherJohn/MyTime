@@ -12,7 +12,8 @@ func _ready():
 #	set_data(dbManager.getEmployee(1000))
 
 func connect_update_list(target):
-	connect("update_list", target, "update_employee_list")
+	var error = connect("update_list", target, "update_employee_list")
+	print(error)
 	
 func set_to_update():
 	update_employee = true
@@ -50,7 +51,6 @@ func _on_Button_pressed():
 		newDate["month"] = employee["startDate"]["month"]
 		newDate["year"] = employee["startDate"]["year"]
 		employee["startDate"] = OS.get_unix_time_from_datetime(newDate)
-		print(employee)
 	
 	if employee == null:
 		print("Employee was missing data")

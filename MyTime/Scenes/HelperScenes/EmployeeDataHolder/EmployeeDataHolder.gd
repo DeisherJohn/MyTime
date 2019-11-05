@@ -10,10 +10,7 @@ signal button_press(employee)
 
 var _employee = null
 
-func _ready():
-#	set_button_text()
-#	set_data(dbManager.getEmployee(1000))
-	pass
+var pin = null
 
 func set_button_text(mode = 0):
 	button_mode = mode
@@ -33,17 +30,14 @@ func set_data(employee):
 	emit_signal("update_data", employee)
 
 func _on_Button_pressed():
-	
-	emit_signal("button_press", _employee)
-			
+	if pin == _employee["pin"] or pin == settings.get_admin_pin():
+		emit_signal("button_press", _employee)		
 	pass # Replace with function body.
 
 func set_connect(target):
-	connect("button_press", target, "employee_selected")
+	var error = connect("button_press", target, "employee_selected")
+	if error: print("ERR: %s" % error)
 	
-	
-	
-	
-	
-	
-	
+func _on_LineEdit_text_changed(new_text):
+	pin = new_text
+	pass # Replace with function body.

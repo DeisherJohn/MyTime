@@ -11,7 +11,7 @@ onready var simpleReport = $WindowDialog/MarginContainer/VBoxContainer/CheckBox
 
 func _ready():
 	$FileDialog.popup_centered()
-	$FileDialog.set_current_path(FileManager.DEFAULT_FILE_LOC)
+	$FileDialog.set_current_path(settings.get_save_location())
 	pass
 
 

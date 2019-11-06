@@ -1,15 +1,5 @@
 extends Node
 
-const DEFAULT_FILE_LOC = "C:/Users/John Deisher/Documents/GitHub/MyTime/Reports/"
-
-func _ready():
-	var emp = Dictionary()
-	emp["eid"] =1000
-	#print(OS.get_time_zone_info())
-	#generate_single_csv(dbManager.getEmployee(1000))
-	#generate_all_employee_files()
-	
-	pass
 	
 func generate_single_csv(employee, file_loc = null, start = 0, end = null, simple = true):
 	var get_times = dbManager.getShiftTimes(employee["eid"], start, end)
@@ -18,7 +8,7 @@ func generate_single_csv(employee, file_loc = null, start = 0, end = null, simpl
 		return false
 	
 	if file_loc == null:
-		file_loc = DEFAULT_FILE_LOC + employee["first_name"] + employee["last_name"] + str(OS.get_unix_time()) + ".csv"
+		file_loc = settings.get_save_location() + employee["first_name"] + employee["last_name"] + str(OS.get_unix_time()) + ".csv"
 		
 	var keys = get_times[0].keys()
 	
@@ -49,7 +39,7 @@ func generate_all_employee_files(file_loc = null, start = 0, end = null, simple 
 	#open file
 	
 	if file_loc == null:
-		file_loc = DEFAULT_FILE_LOC + "Report" + str(OS.get_unix_time()) + ".csv"
+		file_loc = settings.get_save_location() + "Report" + str(OS.get_unix_time()) + ".csv"
 		
 	var file = File.new()
 	file.open(file_loc, file.WRITE)

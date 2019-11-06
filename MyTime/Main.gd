@@ -7,9 +7,6 @@ func _ready():
 	settings.load_settings(self)
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_Control_add_new_employee():
@@ -19,9 +16,11 @@ func _on_Control_add_new_employee():
 	add_child(new_emp)
 	pass # Replace with function body.
 
+
 func kill(obj):
 	obj.queue_free()
-	
+
+
 func update_employee_list():
 	emit_signal("update_list")
 	pass
@@ -44,7 +43,8 @@ func _on_Control_gen_all_report():
 	add_child(file)
 	file.connect_sig(self)
 	pass # Replace with function body.
-	
+
+
 func make_file(file_loc, start = 0, end = null, simple = true):
 	if file_loc == null:
 		return
@@ -57,3 +57,10 @@ func _on_Control_open_settings():
 	var settingPanel = settingScene.instance()
 	add_child(settingPanel)
 	pass # Replace with function body.
+
+
+func _on_Control_view_time_log():
+	var timeLogList = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
+	var panel = timeLogList.instance()
+	panel.set_to_timelog()
+	add_child(panel)

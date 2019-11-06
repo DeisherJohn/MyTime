@@ -2,6 +2,8 @@ extends Control
 
 export var date_title : String = "Date"
 export var key : String = "date"
+export var key_to_pull : String = "startDate"
+
 
 var day = null
 var month = null
@@ -35,7 +37,7 @@ func set_date(date = null):
 	if date == null:
 		date = OS.get_date()
 	else:
-		date = OS.get_datetime_from_unix_time(int(date["startDate"]))
+		date = OS.get_datetime_from_unix_time(int(date[key_to_pull]))
 	
 	day.set_text(str(date["day"]))
 	month.set_text(str(date["month"]))

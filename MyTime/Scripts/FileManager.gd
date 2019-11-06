@@ -96,14 +96,21 @@ func convert_unixtime_to_string_time(unixtime):
 	var dateString = ""
 	match settings.get_date_format():
 		settings.DATE_FORMAT.DDMMYYYY:
+			if newTime["day"] < 10: dateString += "0"
 			dateString += str(newTime["day"]) + "/" 
+			if newTime["month"] < 10: dateString += "0"
 			dateString += str(newTime["month"]) + "/"
 		settings.DATE_FORMAT.MMDDYYYY:
+			if newTime["month"] < 10: dateString += "0"
 			dateString += str(newTime["month"]) + "/"
+			if newTime["day"] < 10: dateString += "0"
 			dateString += str(newTime["day"]) + "/" 
 			
 	dateString += str(newTime["year"]) + " " 
+	
+	if newTime["hour"] < 10: dateString += "0"
 	dateString += str(newTime["hour"]) + ":" 
+	if newTime["minute"] < 10: dateString += "0"
 	dateString += str(newTime["minute"]) 
 	
 	return dateString

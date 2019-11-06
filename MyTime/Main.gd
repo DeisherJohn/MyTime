@@ -57,3 +57,10 @@ func _on_Control_open_settings():
 	var settingPanel = settingScene.instance()
 	add_child(settingPanel)
 	pass # Replace with function body.
+
+
+func _on_Control_view_time_log():
+	var timeLogList = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
+	var panel = timeLogList.instance()
+	panel.set_to_timelog()
+	add_child(panel)

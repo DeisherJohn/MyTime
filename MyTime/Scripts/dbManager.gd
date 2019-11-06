@@ -220,7 +220,9 @@ func getShiftTimes(eid, start = 0, end = null, itemLimit = null):
 	
 	result = db.fetch_array(query)
 	return result
-		
+	
+func get_last_shift(eid, start = 0, end = null, itemLimit = null):
+	var shifts = getShiftTimes(eid, start, end, 1)
 
 func checkStatus(eid):
 	var table = getEmployeeTableName(eid)
@@ -244,4 +246,12 @@ func get_time_offset(time):
 	
 	time += (hour * 60 * 60) + (minute * 60)
 	return time
+	
+	
+func update_time_entry(eid, id, signIn, signOut = 0):
+	var table = getEmployeeTableName(eid)
+	
+	query = "UPDATE " + table + " SET signIn=" + str(signIn) + ", signOut=" + str(signOut) + " WHERE id=" + str(id)
+	result = db.query(query)
+	
 	

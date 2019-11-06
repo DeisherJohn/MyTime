@@ -6,8 +6,9 @@
 script/source = "extends PanelContainer
 
 signal update_list()
+signal load_time(employee, start, end)
 
-enum BUTTON_TYPE {SIGN_IN, SIGN_OUT, UPDATE, REPORT}
+enum BUTTON_TYPE {SIGN_IN, SIGN_OUT, UPDATE, REPORT, TIMELOG}
 
 export var title : String = \"TITLE\"
 export(BUTTON_TYPE) var list_type : int
@@ -15,7 +16,7 @@ export(BUTTON_TYPE) var list_type : int
 var employeeCard = preload(\"res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.tscn\")
 var employeeData = preload(\"res://Scenes/EmployeeData/EmployeeData.tscn\")
 var fileSelect = preload(\"res://Scenes/HelperScenes/FileSave.tscn\")
-#var PinCheck = preload(\"res://Scenes/HelperScenes/PinCheck.tscn\")
+var timeLog = preload(\"res://Scenes/ReportScenes/ReportTimeLog.tscn\")
 var selectedEmployee = null
 
 func _ready():
@@ -42,10 +43,9 @@ func add_employees():
 	for employee in employees:
 		if dbManager.checkStatus(employee[\"eid\"]) and list_type == BUTTON_TYPE.SIGN_OUT:
 			add_employee_card(employee)
-			pass
 		elif not dbManager.checkStatus(employee[\"eid\"]) and list_type == BUTTON_TYPE.SIGN_IN:
 			add_employee_card(employee)
-		elif list_type == BUTTON_TYPE.UPDATE or list_type == BUTTON_TYPE.REPORT:
+		elif list_type == BUTTON_TYPE.UPDATE or list_type == BUTTON_TYPE.REPORT or list_type == BUTTON_TYPE.TIMELOG:
 			add_employee_card(employee)
 		pass
 		
@@ -53,15 +53,8 @@ func add_employees():
 func employee_selected(employee):
 	selectedEmployee = employee
 	check_clear(true)
-	
-#	var checkPin = PinCheck.instance()
-#	checkPin.pass_pin(employee)
-#	selectedEmployee = employee
-#
-#	add_child(checkPin)
-#	checkPin.connect_signal(self)
 
-	
+
 func check_clear(goodPin = false):
 	if goodPin:
 		match list_type:
@@ -83,6 +76,15 @@ func check_clear(goodPin = false):
 				var file = fileSelect.instance()
 				add_child(file)
 				file.connect_sig(self)
+			BUTTON_TYPE.TIMELOG:
+				emit_signal(\"load_time\", selectedEmployee, 0, null)
+#				var TimeList = timeLog.instance()
+#				get_parent().add_child(TimeList)
+#				TimeList.set_employee(selectedEmployee)
+#				TimeList.set_date_range(0,null)
+#				TimeList.fill_data()
+				
+				
 				pass
 	else:
 		print(\"BOO\")
@@ -104,11 +106,11 @@ list_type = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 319.0
+margin_right = 308.0
 margin_bottom = 593.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 312.0
+margin_right = 301.0
 margin_bottom = 14.0
 text = "Title"
 align = 1
@@ -116,20 +118,19 @@ valign = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 18.0
-margin_right = 312.0
+margin_right = 301.0
 margin_bottom = 22.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 26.0
-margin_right = 312.0
+margin_right = 301.0
 margin_bottom = 586.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
-margin_left = 6.0
-margin_right = 306.0
+margin_right = 300.0
 margin_bottom = 50.0
 size_flags_horizontal = 6
 

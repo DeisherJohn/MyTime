@@ -31,12 +31,13 @@ margin_left = 319.0
 margin_right = 634.0
 margin_bottom = 600.0
 title = "Signed In"
-[connection signal="update_list" from="." to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder" method="add_employees"]
+[connection signal="update_list" from="." to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="add_new_employee" from="Control" to="." method="_on_Control_add_new_employee"]
 [connection signal="gen_all_report" from="Control" to="." method="_on_Control_gen_all_report"]
 [connection signal="gen_single_report" from="Control" to="." method="_on_Control_gen_single_report"]
 [connection signal="open_settings" from="Control" to="." method="_on_Control_open_settings"]
 [connection signal="update_employees" from="Control" to="." method="_on_Control_update_employees"]
+[connection signal="view_time_log" from="Control" to="." method="_on_Control_view_time_log"]
 [connection signal="update_list" from="HBoxContainer/ListHolder" to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="update_list" from="HBoxContainer/ListHolder2" to="HBoxContainer/ListHolder" method="add_employees"]

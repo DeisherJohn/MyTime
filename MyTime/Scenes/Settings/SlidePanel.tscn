@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Settings/PanelContainer.gd" type="Script" id=1]
+
+[node name="SlidePanel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 259.813
+margin_top = 234.111
+margin_right = 384.813
+margin_bottom = 248.111
+script = ExtResource( 1 )
+max_x = 125
+max_y = 200
+transition_time = 0.5
+init_grow = 3
+sec_grow = 4
+
+[node name="Button" type="Button" parent="."]
+margin_right = 28.0
+margin_bottom = 32.0
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2( 0, 4 )
+points = PoolVector2Array( 242.181, 247.22, 397.089, 247.22 )
+[connection signal="pressed" from="Button" to="PanelContainer" method="_on_Button_pressed"]

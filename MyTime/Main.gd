@@ -50,3 +50,10 @@ func make_file(file_loc, start = 0, end = null, simple = true):
 		return
 	FileManager.generate_all_employee_files(file_loc, start, end, simple)
 	pass
+
+
+func _on_Control_open_settings():
+	var settingScene = load("res://Scenes/Settings/SidePanel.tscn")
+	var settingPanel = settingScene.instance()
+	add_child(settingPanel)
+	pass # Replace with function body.

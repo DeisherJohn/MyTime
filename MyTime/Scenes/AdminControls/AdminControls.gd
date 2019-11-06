@@ -4,6 +4,7 @@ signal add_new_employee()
 signal update_employees()
 signal gen_single_report()
 signal gen_all_report()
+signal open_settings()
 
 func _on_Button_pressed():
 	emit_signal("add_new_employee")
@@ -22,4 +23,9 @@ func _on_Button3_pressed():
 
 func _on_Button4_pressed():
 	emit_signal("gen_all_report")
+	pass # Replace with function body.
+
+
+func _on_Button5_pressed():
+	emit_signal("open_settings")
 	pass # Replace with function body.

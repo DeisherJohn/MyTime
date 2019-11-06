@@ -97,4 +97,4 @@ text = "Settings"
 [connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
 [connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/Button4" to="." method="_on_Button4_pressed"]
-[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/Button5" to="." method="_on_Button4_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/Button5" to="." method="_on_Button5_pressed"]

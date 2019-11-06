@@ -12,11 +12,15 @@ var _settings = {
 	},
 	"date":{
 		"format":DATE_FORMAT.MMDDYYYY
+	},
+	"files":{
+		"save_location":"C:/Users/John Deisher/Documents/GitHub/MyTime/Reports/"
 	}
 }
 
 func _ready():
 	load_settings()
+	print(_settings["files"]["save_location"])
 	OS.set_low_processor_usage_mode(true) 
 
 
@@ -28,6 +32,16 @@ func get_admin_pin():
 	
 func get_date_format():
 	return _settings["date"]["format"]
+	
+func set_date_format(value):
+	_settings["date"]["format"] = value
+	
+func get_save_location():
+	var path = _settings["files"]["save_location"]
+	return path
+	
+func set_save_location(path):
+	_settings["files"]["save_location"] = path
 
 func save_settings():
 	for section in _settings.keys():

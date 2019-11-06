@@ -21,8 +21,9 @@ func set_time_record(data):
 	pass
 
 func connect_time_sig(target):
-	self.connect("selected_time", target, "edit_time")
-	
+	var error = self.connect("selected_time", target, "edit_time")
+	if error != OK:
+		print("ERROR: %s" % error)
 	
 func get_time_worked():
 	return time_worked

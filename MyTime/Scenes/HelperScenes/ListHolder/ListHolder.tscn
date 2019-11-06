@@ -16,7 +16,7 @@ export(BUTTON_TYPE) var list_type : int
 var employeeCard = preload(\"res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.tscn\")
 var employeeData = preload(\"res://Scenes/EmployeeData/EmployeeData.tscn\")
 var fileSelect = preload(\"res://Scenes/HelperScenes/FileSave.tscn\")
-var timeLog = preload(\"res://Scenes/ReportScenes/ReportTimeLog.tscn\")
+#var timeLog = preload(\"res://Scenes/ReportScenes/ReportTimeLog.tscn\")
 var selectedEmployee = null
 
 func _ready():

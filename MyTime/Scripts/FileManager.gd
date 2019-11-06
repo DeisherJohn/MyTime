@@ -2,6 +2,8 @@ extends Node
 
 	
 func generate_single_csv(employee, file_loc = null, start = 0, end = null, simple = true):
+	print("USE SIMPLE %s" %simple)
+	#TODO: make a single csv with simple data
 	var get_times = dbManager.getShiftTimes(employee["eid"], start, end)
 	
 	if len(get_times) < 1:

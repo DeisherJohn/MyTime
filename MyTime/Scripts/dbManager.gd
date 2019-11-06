@@ -221,8 +221,6 @@ func getShiftTimes(eid, start = 0, end = null, itemLimit = null):
 	result = db.fetch_array(query)
 	return result
 	
-func get_last_shift(eid, start = 0, end = null, itemLimit = null):
-	var shifts = getShiftTimes(eid, start, end, 1)
 
 func checkStatus(eid):
 	var table = getEmployeeTableName(eid)

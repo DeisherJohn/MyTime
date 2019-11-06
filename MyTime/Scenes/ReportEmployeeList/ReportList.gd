@@ -21,7 +21,7 @@ func _on_ListHolder_load_time(employee, start, end):
 	_end = end
 	
 	var date = datePicker.instance()
-	date.date_only()
+	date.make_date_only()
 	get_parent().add_child(date)
 	date.connect_sig(self)
 	

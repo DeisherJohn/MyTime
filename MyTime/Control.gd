@@ -21,7 +21,7 @@ func _ready():
 		$WindowDialog.popup_centered()
 	pass
 
-func date_only():
+func make_date_only():
 	date_only = true
 	$FileDialog.hide()
 	$WindowDialog.popup_centered()

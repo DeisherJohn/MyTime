@@ -72,6 +72,7 @@ func check_clear(goodPin = false):
 			BUTTON_TYPE.UPDATE:
 				var updateEmpData = employeeData.instance()
 				get_parent().add_child(updateEmpData)
+				updateEmpData.connect(\"update_list\", self, \"update_employee_list\")
 				updateEmpData.set_data(selectedEmployee)
 				updateEmpData.set_to_update()
 			BUTTON_TYPE.REPORT:
@@ -94,7 +95,12 @@ func make_file(file_loc, start = 0, end = null, simple = false):
 	var confirm = load(\"res://Scenes/HelperScenes/FileCreated.tscn\")
 	var temp = confirm.instance()
 	temp.set_text(complete)
-	add_child(temp)"
+	add_child(temp)
+	
+func update_employee_list():
+	add_employees()
+
+"
 
 [node name="ListHolder" type="PanelContainer"]
 anchor_bottom = 1.0

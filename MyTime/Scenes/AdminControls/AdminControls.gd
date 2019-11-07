@@ -23,15 +23,37 @@ func _on_Button3_pressed():
 
 
 func _on_Button4_pressed():
-	emit_signal("gen_all_report")
+	if $PanelContainer/VBoxContainer/HBoxContainer/LineEdit.get_text() == settings.get_admin_pin():
+		emit_signal("gen_all_report")
+	
+	$PanelContainer/VBoxContainer/HBoxContainer/LineEdit.set_text("")
 	pass # Replace with function body.
 
 
 func _on_Button5_pressed():
-	emit_signal("open_settings")
+	if $PanelContainer/VBoxContainer/HBoxContainer2/LineEdit2.get_text() == settings.get_admin_pin():
+		emit_signal("open_settings")
+	
+	$PanelContainer/VBoxContainer/HBoxContainer2/LineEdit2.set_text("")
+	
 	pass # Replace with function body.
 
 
 func _on_Button6_pressed():
 	emit_signal("view_time_log")
+	pass # Replace with function body.
+
+
+func _on_LineEdit_text_entered(new_text):
+	if new_text == settings.get_admin_pin():
+		emit_signal("gen_all_report")
+	
+	$PanelContainer/VBoxContainer/HBoxContainer/LineEdit.set_text("")
+
+
+func _on_LineEdit2_text_entered(new_text):
+	if new_text == settings.get_admin_pin():
+		emit_signal("open_settings")
+	
+	$PanelContainer/VBoxContainer/HBoxContainer2/LineEdit2.set_text("")
 	pass # Replace with function body.

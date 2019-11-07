@@ -2,6 +2,11 @@ extends Control
 
 signal update_list()
 
+var update_list_open = false
+var time_log_open = false
+var report_log_open = false
+var settings_open = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	settings.load_settings(self)
@@ -28,15 +33,19 @@ func update_employee_list():
 	pass
 
 func _on_Control_update_employees():
-	var updateList = load("res://Scenes/UpdateEmployeeList/UpdateList.tscn")
-	add_child(updateList.instance())
+	if not update_list_open:
+		var updateList = load("res://Scenes/UpdateEmployeeList/UpdateList.tscn")
+		add_child(updateList.instance())
+		update_list_open = true
 	pass # Replace with function body.
 
 
 func _on_Control_gen_single_report():
-	var single_report = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
-	add_child(single_report.instance())
-	pass # Replace with function body.
+	if not report_log_open:
+		var single_report = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
+		add_child(single_report.instance())
+		report_log_open = true
+		pass # Replace with function body.
 
 
 func _on_Control_gen_all_report():
@@ -61,17 +70,21 @@ func make_file(file_loc, start = 0, end = null, simple = true):
 
 
 func _on_Control_open_settings():
-	var settingScene = load("res://Scenes/Settings/SidePanel.tscn")
-	var settingPanel = settingScene.instance()
-	add_child(settingPanel)
-	pass # Replace with function body.
+	if not settings_open:
+		var settingScene = load("res://Scenes/Settings/SidePanel.tscn")
+		var settingPanel = settingScene.instance()
+		add_child(settingPanel)
+		settings_open = true
+		pass # Replace with function body.
 
 
 func _on_Control_view_time_log():
-	var timeLogList = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
-	var panel = timeLogList.instance()
-	panel.set_to_timelog()
-	add_child(panel)
+	if not time_log_open:
+		var timeLogList = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
+		var panel = timeLogList.instance()
+		panel.set_to_timelog()
+		add_child(panel)
+		time_log_open = true
 
 
 func _on_Button_pressed():

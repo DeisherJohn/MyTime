@@ -186,5 +186,6 @@ script = SubResource( 6 )
 [connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" method="_on_EmployeeDataHolder_update_data"]
 [connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" method="_on_EmployeeDataHolder_update_data"]
 [connection signal="text_changed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="text_entered" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" method="_on_Button_pressed"]

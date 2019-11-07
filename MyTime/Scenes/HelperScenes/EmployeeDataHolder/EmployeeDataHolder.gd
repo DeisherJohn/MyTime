@@ -37,8 +37,9 @@ func set_data(employee):
 
 
 func _on_Button_pressed():
-	if pin == _employee["pin"] or pin == settings.get_admin_pin():
+	if (pin == _employee["pin"] and button_mode != button_type.REPORT) or pin == settings.get_admin_pin():
 		emit_signal("button_press", _employee)		
+		pin = null
 
 
 func set_connect(target):
@@ -48,3 +49,8 @@ func set_connect(target):
 
 func _on_LineEdit_text_changed(new_text):
 	pin = new_text
+
+
+func _on_LineEdit_text_entered(new_text):
+	_on_Button_pressed()
+	pass # Replace with function body.

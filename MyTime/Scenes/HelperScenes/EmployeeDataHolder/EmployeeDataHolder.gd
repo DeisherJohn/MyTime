@@ -49,3 +49,8 @@ func set_connect(target):
 
 func _on_LineEdit_text_changed(new_text):
 	pin = new_text
+
+
+func _on_LineEdit_text_entered(new_text):
+	_on_Button_pressed()
+	pass # Replace with function body.

@@ -57,3 +57,8 @@ func _on_LineEdit2_text_entered(new_text):
 	
 	$PanelContainer/VBoxContainer/HBoxContainer2/LineEdit2.set_text("")
 	pass # Replace with function body.
+
+
+func _on_Button7_pressed():
+	$AboutWindow.show_window()
+	pass # Replace with function body.

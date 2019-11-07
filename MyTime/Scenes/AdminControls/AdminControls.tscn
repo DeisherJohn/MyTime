@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/AdminControls/AdminControls.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/AboutDocumentation/AboutWindow.tscn" type="PackedScene" id=2]
 
 [node name="AdminPanel" type="Control"]
 anchor_left = 1.0
@@ -17,13 +18,13 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -226.0
-margin_top = -214.0
+margin_top = -248.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 219.0
-margin_bottom = 207.0
+margin_bottom = 241.0
 size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
@@ -65,6 +66,7 @@ text = "Gen. Single Report"
 margin_top = 136.0
 margin_right = 212.0
 margin_bottom = 166.0
+size_flags_vertical = 3
 
 [node name="Button4" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 margin_right = 150.0
@@ -87,6 +89,7 @@ placeholder_text = "Pin"
 margin_top = 170.0
 margin_right = 212.0
 margin_bottom = 200.0
+size_flags_vertical = 3
 
 [node name="Button5" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 margin_right = 150.0
@@ -104,6 +107,18 @@ max_length = 4
 secret = true
 clear_button_enabled = true
 placeholder_text = "Pin"
+
+[node name="Button7" type="Button" parent="PanelContainer/VBoxContainer"]
+margin_top = 204.0
+margin_right = 212.0
+margin_bottom = 234.0
+rect_min_size = Vector2( 150, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "About Software"
+
+[node name="AboutWindow" parent="." instance=ExtResource( 2 )]
+visible = false
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button6" to="." method="_on_Button6_pressed"]
@@ -112,3 +127,4 @@ placeholder_text = "Pin"
 [connection signal="text_entered" from="PanelContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer2/Button5" to="." method="_on_Button5_pressed"]
 [connection signal="text_entered" from="PanelContainer/VBoxContainer/HBoxContainer2/LineEdit2" to="." method="_on_LineEdit2_text_entered"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Button7" to="." method="_on_Button7_pressed"]

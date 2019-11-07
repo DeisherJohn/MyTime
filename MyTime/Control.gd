@@ -3,6 +3,7 @@ extends Control
 export(bool) var date_only = false
  
 signal file_loc(path, start, end)
+signal dates_selected(start, end)
 
 var confirmed = false
 var file_path = null
@@ -25,6 +26,7 @@ func make_date_only():
 	date_only = true
 	$FileDialog.hide()
 	$WindowDialog.popup_centered()
+	
 	
 func connect_sig(target):
 	var error = connect("file_loc", target, "make_file")
@@ -93,6 +95,7 @@ func _on_ButtonAccept_pressed():
 	
 
 	emit_signal("file_loc", file_path, startDate , endDate, simpleReport.is_pressed())
+	emit_signal("dates_selected", startDate, endDate)
 	queue_free()
 	pass # Replace with function body.
 

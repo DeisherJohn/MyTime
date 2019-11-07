@@ -35,7 +35,7 @@ func _on_EmployeeDataHolder_update_data(employee):
 	pass # Replace with function body.
 "
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=5]
 script/source = "extends LineEdit
 
 func _ready():
@@ -47,7 +47,7 @@ func _on_Button_pressed():
 	pass # Replace with function body.
 "
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Button
 
 func _ready():
@@ -170,7 +170,7 @@ max_length = 4
 secret = true
 clear_button_enabled = true
 placeholder_text = "pin"
-script = SubResource( 6 )
+script = SubResource( 5 )
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_left = 230.0
@@ -181,10 +181,10 @@ rect_min_size = Vector2( 60, 30 )
 size_flags_horizontal = 8
 size_flags_vertical = 4
 text = "Update"
-script = SubResource( 5 )
+script = SubResource( 6 )
 [connection signal="update_button_text" from="." to="MarginContainer/HBoxContainer/Button" method="_on_EmployeeDataHolder_update_button_text"]
-[connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" method="_on_EmployeeDataHolder_update_data"]
 [connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" method="_on_EmployeeDataHolder_update_data"]
+[connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" method="_on_EmployeeDataHolder_update_data"]
 [connection signal="text_changed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" method="_on_Button_pressed"]

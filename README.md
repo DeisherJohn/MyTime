@@ -1,26 +1,20 @@
 # MyTime
-A program for small buisnesses to help track employee time digitally. 
 
+Thank you for using MyTime.
 
+This software was created by John Deisher to help small businesses manage employee time sheets without needing to hassle with monthly payment or lots of technical setup. 
 
+This software uses a simple SQL database saved locally so that your information is always available to you. Should you even want to migrate to an enterprise level time tracking solution SQL database often can be migrated and since it is your data saved locally you won't lose it just because you change software. 
 
-Installation Read-Me
+Should you have any inquiries about the software feel free to reach out to me via the following ways:
 
-- Once the package is unzipped navigate to the folder Release/Alpha_1_0
-    
-- Copy the following files:
-    - gdsqlite.64.dll
-    - MyTime.exe
-    - MyTime.pck
+Github (Project Repo): https://github.com/DeisherJohn/MyTime
 
-- Save these files to the location you want to store the program, the reports and database are stored separately so this is just where you want the program. 
-
-- Open MyTime.exe
-
+LinkedIn: https://www.linkedin.com/in/john-deisher/
 
 User Guide: 
 
-When the program is first opened you will be prompted to enter an administrator pin, this pin is used for any admin level interactions (i.e. adding employees, update employee info, changing shift times, generating reports)
+When the program is first opened you will be prompted to enter an administrator pin, this pin is used for any Admin level interactions (i.e. adding employees, update employee info, changing shift times, generating reports)
 
 Once a pin has been entered the program is ready to use, the following is the options currently available. 
 
@@ -31,8 +25,8 @@ Once a pin has been entered the program is ready to use, the following is the op
         This options allows an existing employees information to be updated, this option does NOT adjust employee time logs, only general information. 
 
 - View Employee Log:
-    - This options pulls an employees shift information for a selected time range, this will work with both the employee pin and the admin pin, but only an admin pin can change a time record. 
-    - should an record need to be updated, once it has been selected the admin can enter the pin to save any corrected data to the database. 
+    - This options pulls an employees shift information for a selected time range, this will work with both the employee pin and the Admin pin, but only an Admin pin can change a time record. 
+    - should an record need to be updated, once it has been selected the Admin can enter the pin to save any corrected data to the database. 
 
 - Gen. Single Report:
     - This options allows two report types to be created for a single employee

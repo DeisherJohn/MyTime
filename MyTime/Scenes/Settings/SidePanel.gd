@@ -33,6 +33,7 @@ func _on_ButtonSave_pressed():
 
 
 func _on_ButtonCancel_pressed():
+	get_parent().settings_open = false
 	queue_free()
 
 

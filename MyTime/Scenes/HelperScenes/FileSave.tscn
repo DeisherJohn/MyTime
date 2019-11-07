@@ -32,6 +32,7 @@ margin_left = -152.0
 margin_top = -85.0
 margin_right = 182.0
 margin_bottom = 114.0
+popup_exclusive = true
 window_title = "Select Dates"
 
 [node name="MarginContainer" type="MarginContainer" parent="WindowDialog"]
@@ -146,6 +147,7 @@ size_flags_vertical = 4
 text = "Cancel"
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="popup_hide" from="FileDialog" to="." method="_on_FileDialog_popup_hide"]
+[connection signal="popup_hide" from="WindowDialog" to="." method="_on_WindowDialog_popup_hide"]
 [connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/Button3" to="." method="_on_Button3_pressed"]

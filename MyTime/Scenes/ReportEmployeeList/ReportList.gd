@@ -9,6 +9,7 @@ var _end = null
 
 func _on_Button_pressed():
 	get_parent().update_employee_list()
+	get_parent().time_log_open = false
 	queue_free()
 	pass # Replace with function body.
 
@@ -29,6 +30,9 @@ func _on_ListHolder_load_time(employee):
 	pass # Replace with function body.
 
 func show_time_log(start, end):
+	if start == null and end == null:
+		return
+		
 	var TimeList = timeLog.instance()
 	get_parent().add_child(TimeList)
 	TimeList.set_employee(selected_employee)

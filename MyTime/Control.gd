@@ -106,5 +106,13 @@ func _on_ButtonAccept_pressed():
 
 func _on_ButtonCancel_pressed():
 	emit_signal("file_loc", null)
+	emit_signal("dates_selected", null, null)
 	queue_free()
+	pass # Replace with function body.
+
+
+func _on_WindowDialog_popup_hide():
+	emit_signal("dates_selected", null, null)
+	emit_signal("file_loc", null)
+	#queue_free()
 	pass # Replace with function body.

@@ -1,6 +1,6 @@
 extends Node
 
-const dbPath = "res://data.sql"
+const dbPath = "user://data.sql"
 const SQLite = preload("res://lib/gdsqlite.gdns")
 
 
@@ -10,17 +10,17 @@ var result = null
 var connected = false
 
 var TestEmployee = {
-		"eid":1000,
-		"first_name":"John",
-		"last_name":"Deisher",
-		"position":"Developer",
-		"pin":"1234",
-		"startDate":"null",
-		"phone":"null",
-		"email":"null",
-		"canRemoteReport":1,
-		"canRemoteLogIn":1,
-		"active":1
+		"eid":999,
+		"first_name":"",
+		"last_name":"",
+		"position":"",
+		"pin":"",
+		"startDate":"",
+		"phone":"",
+		"email":"",
+		"canRemoteReport":0,
+		"canRemoteLogIn":0,
+		"active":0
 	}
 
 func _ready():
@@ -66,14 +66,6 @@ func _ready():
 
 		result = db.query(query) #add employee to DB
 	
-	#addEmployee(TestEmployee)
-	#print(getEmployee(1000))
-	#get_tree().add_child(newPin)
-		
-	#addEmployee(TestEmployee)
-	#logEmplyoeeTime(1234)
-	#getShiftTimes(1234, 5, null)
-	#getEmployeeList()
 	pass # Replace with function body.
 
 func closeDB():

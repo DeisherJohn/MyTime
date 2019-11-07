@@ -49,8 +49,8 @@ func _on_CheckBoxMM_toggled(button_pressed):
 
 
 func _on_Button_pressed():
-	$FileDialog.popup_centered()
-	$FileDialog.set_current_dir(filePath.get_text())
+	$FileDialog.set_current_path(filePath.get_text())
+	$FileDialog.popup()
 	pass # Replace with function body.
 
 

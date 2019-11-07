@@ -25,7 +25,6 @@ func set_date_range(start, end):
 	end_date = end
 
 func edit_time(time):
-	print(time)
 	fill_time_entry(time)
 	$WindowDialog.popup_centered()
 	pass
@@ -34,6 +33,9 @@ func fill_data():
 	if Grid.get_children() != null:
 		for child in Grid.get_children():
 			child.queue_free()
+	
+	if _employee == null:
+		return
 		
 	var shifts = dbManager.getShiftTimes(_employee["eid"], start_date, end_date, 100)
 	var time_worked = 0.0

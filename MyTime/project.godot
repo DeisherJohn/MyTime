@@ -19,6 +19,7 @@ config/name="MyTime"
 run/main_scene="res://Main.tscn"
 run/low_processor_mode=true
 boot_splash/image="res://Logo.png"
+boot_splash/fullsize=false
 config/icon="res://Logo.png"
 
 [autoload]

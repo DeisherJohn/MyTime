@@ -64,6 +64,7 @@ custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
 text = "Clear Data"
 
 [node name="SetupScene" parent="." instance=ExtResource( 4 )]
+visible = false
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder" method="add_employees"]
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="add_new_employee" from="Control" to="." method="_on_Control_add_new_employee"]

@@ -64,7 +64,3 @@ func _on_FileDialog_file_selected(path):
 	print(path)
 	pass # Replace with function body.
 
-
-func _on_ButtonAbout_pressed():
-	$AboutWindow.show_window()
-	pass # Replace with function body.

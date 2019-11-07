@@ -5,6 +5,8 @@ signal update_list()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	settings.load_settings(self)
+	if not settings.get_first_run():
+		$SetupScene.queue_free()
 	pass # Replace with function body.
 
 

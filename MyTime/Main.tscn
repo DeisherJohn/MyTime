@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/AdminControls/AdminControls.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/HelperScenes/ListHolder/ListHolder.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/SetupUI/SetupScene.tscn" type="PackedScene" id=4]
 
 [node name="MainWindow" type="Control"]
 anchor_right = 1.0
@@ -33,6 +34,7 @@ margin_bottom = 600.0
 title = "Signed In"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+editor/display_folded = true
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -214.0
@@ -60,6 +62,8 @@ margin_bottom = 104.0
 rect_min_size = Vector2( 100, 50 )
 custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
 text = "Clear Data"
+
+[node name="SetupScene" parent="." instance=ExtResource( 4 )]
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder" method="add_employees"]
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="add_new_employee" from="Control" to="." method="_on_Control_add_new_employee"]

@@ -8,24 +8,26 @@ var _config_file = ConfigFile.new()
 
 var _settings = {
 	"hidden":{
-		"admin_pin":"0000"
+		"admin_pin":"0000",
+		"first_run":true
 	},
 	"date":{
 		"format":DATE_FORMAT.MMDDYYYY
 	},
 	"files":{
-		"save_location":OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS) + "/",
+		"save_location":OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS) + "\\",
 		"database_location":"user://data.sql"
 	}
 }
 
 func _ready():
+	
 	var error = load_settings()
 	
-	if error == 19:
-		save_settings()
-		load_settings()
-		
+	if error == OK:
+		#First run
+		print("Save file did not open, ERROR: %s" %error)
+		 
 	OS.set_low_processor_usage_mode(true) 
 
 
@@ -52,7 +54,13 @@ func get_db_location():
 	
 func set_db_location(path):
 	_settings["files"]["database_location"] = path
-
+	
+func get_first_run():
+	return _settings["hidden"]["first_run"]
+	
+func set_first_run(value : bool):
+	if value == null: return
+	_settings["hidden"]["first_run"] = value
 
 func save_settings():
 	for section in _settings.keys():

@@ -36,9 +36,12 @@ func add_employee_card(employee):
 func add_employees():
 	var active = false if list_type == BUTTON_TYPE.UPDATE else true
 	var employees = dbManager.getEmployeeList(active)
-	
+
 	for child in $VBoxContainer/ScrollContainer/VBoxContainer.get_children():
 		child.queue_free()
+	
+	if employees == null:
+		return
 		
 	for employee in employees:
 		if dbManager.checkStatus(employee[\"eid\"]) and list_type == BUTTON_TYPE.SIGN_OUT:

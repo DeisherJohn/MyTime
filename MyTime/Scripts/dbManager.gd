@@ -1,8 +1,8 @@
 extends Node
 
-const dbPath = "user://data.sql"
-const SQLite = preload("res://lib/gdsqlite.gdns")
 
+const SQLite = preload("res://lib/gdsqlite.gdns")
+var dbPath = null
 
 var db = null
 var query = ""
@@ -24,15 +24,14 @@ var TestEmployee = {
 	}
 
 func _ready():
-	db = SQLite.new()
+	if not settings.get_first_run():
+		dbPath = settings.get_db_location()
+		connected = connectDB()
+	pass # Replace with function body.
+
+func make_db():
+	connected = connectDB()
 	
-	if(!db.open_db(dbPath)):
-		#Connect to db or make it if it does not exist
-		print("ERR: %s" % db.get_errormsg())
-		return
-		
-	connected = true
-		
 	#prep table if not created to hold users
 	query = "CREATE TABLE IF NOT EXISTS users ("
 	query += "eid integer PRIMARY KEY,"
@@ -50,25 +49,36 @@ func _ready():
 	
 	result = db.query(query)
 	
-	if settings.get_admin_pin() == "0000":
-		query = "INSERT INTO users (eid, first_name, last_name, position, pin, startDate, phone, email, canRemoteReport, canRemoteLogIn, active) VALUES ('"
-		query += str(TestEmployee['eid']) + "','" 
-		query += TestEmployee['first_name'] + "','" 
-		query += TestEmployee['last_name'] + "','" 
-		query += TestEmployee['position'] + "','" 
-		query += TestEmployee['pin'] + "','" 
-		query += TestEmployee['startDate'] + "','"
-		query += TestEmployee['phone'] + "','" 
-		query += TestEmployee['email'] + "'," 
-		query += str(TestEmployee['canRemoteReport']) + "," 
-		query += str(TestEmployee['canRemoteLogIn']) + "," 
-		query += str(TestEmployee['active']) + ")"
+	query = "INSERT INTO users (eid, first_name, last_name, position, pin, startDate, phone, email, canRemoteReport, canRemoteLogIn, active) VALUES ('"
+	query += str(TestEmployee['eid']) + "','" 
+	query += TestEmployee['first_name'] + "','" 
+	query += TestEmployee['last_name'] + "','" 
+	query += TestEmployee['position'] + "','" 
+	query += TestEmployee['pin'] + "','" 
+	query += TestEmployee['startDate'] + "','"
+	query += TestEmployee['phone'] + "','" 
+	query += TestEmployee['email'] + "'," 
+	query += str(TestEmployee['canRemoteReport']) + "," 
+	query += str(TestEmployee['canRemoteLogIn']) + "," 
+	query += str(TestEmployee['active']) + ")"
 
-		result = db.query(query) #add employee to DB
+	result = db.query(query) #add employee to DB
+	pass
 	
-	pass # Replace with function body.
-
+func connectDB():
+	dbPath = settings.get_db_location()
+	db = SQLite.new()
+	if(!db.open_db(dbPath)):
+		#Connect to db or make it if it does not exist
+		print("ERR: %s" % db.get_errormsg())
+		return false
+		
+	return true
+	
 func closeDB():
+	if not connected:
+		return
+		
 	db.close()
 	connected = false
 
@@ -77,6 +87,8 @@ func getEmployeeTableName(eid):
 	return "EMP" + str(eid)
 	
 func canEmployeeLogTime(eid, fromRemote = false):
+	if not connected: return null
+	
 	query = "SELECT * FROM users WHERE " 
 	query += "eid = " + str(eid)
 	result = db.fetch_array(query)
@@ -91,6 +103,7 @@ func canEmployeeLogTime(eid, fromRemote = false):
 
 func addEmployee(employee):
 	#employee is going to be a json data set
+	if not connected: return null
 	
 	query = "SELECT * FROM users WHERE " 
 #	if employee["eid"] != null:
@@ -143,6 +156,8 @@ func addEmployee(employee):
 	pass
 	
 func updateEmployee(employee):
+	if not connected: return null
+	
 	query = "UPDATE users SET "
 	query += "first_name='" + employee['first_name'] + "'," 
 	query += "last_name='" + employee['last_name'] + "'," 
@@ -158,6 +173,8 @@ func updateEmployee(employee):
 	result = db.query(query)
 	
 func getEmployee(eid):
+	if not connected: return null
+	
 	query = "SELECT * FROM users WHERE eid = " + str(eid)
 	result = db.fetch_array(query)
 	if len(result) == 0: return null
@@ -166,6 +183,8 @@ func getEmployee(eid):
 	pass
 	
 func getEmployeeList(_active = true):
+	if not connected: return null
+	
 	if _active:
 		query = "SELECT * FROM users WHERE (eid != 999 and active = 1)"
 	else:
@@ -176,6 +195,8 @@ func getEmployeeList(_active = true):
 	pass
 
 func logEmplyoeeTime(eid, time = null, fromRemote = false):
+	if not connected: return null
+	
 	if time == null: 
 		time = get_time_offset(OS.get_datetime())
 		
@@ -200,6 +221,8 @@ func logEmplyoeeTime(eid, time = null, fromRemote = false):
 
 
 func getShiftTimes(eid, start = 0, end = null, itemLimit = null):
+	if not connected: return null
+	
 	if end == null:
 		end = get_time_offset(OS.get_datetime())
 		
@@ -215,6 +238,9 @@ func getShiftTimes(eid, start = 0, end = null, itemLimit = null):
 	
 
 func checkStatus(eid):
+	if not connected: return null
+	
+	
 	var table = getEmployeeTableName(eid)
 	query = "SELECT * FROM " + table +" WHERE " 
 	query += "signOut = 0"
@@ -239,6 +265,8 @@ func get_time_offset(time):
 	
 	
 func update_time_entry(eid, id, signIn, signOut = 0):
+	if not connected: return null
+	
 	var table = getEmployeeTableName(eid)
 	
 	query = "UPDATE " + table + " SET signIn=" + str(signIn) + ", signOut=" + str(signOut) + " WHERE id=" + str(id)

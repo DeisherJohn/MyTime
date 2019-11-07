@@ -42,7 +42,7 @@ Once a pin has been entered the program is ready to use, the following is the op
 - Gen. Full Report:
     this option allows a report to be made that has the same options as the single employee but includes the data from all employees that have time logged for the period. 
 
--Settings:
+- Settings:
     This is where basic settings can be adjusted. 
         1: Date Format: the default format is MM/DD/YYYY but there is support for DD/MM/YYYY as well. 
         2: File Location: this is the default location that is loaded when a new file is created. 

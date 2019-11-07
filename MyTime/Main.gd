@@ -70,3 +70,8 @@ func _on_Control_view_time_log():
 	var panel = timeLogList.instance()
 	panel.set_to_timelog()
 	add_child(panel)
+
+
+func _on_Button_pressed():
+	settings.delete_files()
+	pass # Replace with function body.

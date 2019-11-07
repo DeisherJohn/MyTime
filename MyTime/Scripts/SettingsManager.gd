@@ -61,6 +61,20 @@ func get_first_run():
 func set_first_run(value : bool):
 	if value == null: return
 	_settings["hidden"]["first_run"] = value
+	
+func set_employee_color(eid, color):
+	_config_file.set_value("color", str(eid), color)
+	_config_file.save(SAVE_PATH)	
+	
+func get_employee_color(eid):
+	var error = _config_file.load(SAVE_PATH)
+	
+	if error != OK:
+		print("FAILED TO LOAD SETTINS: ERROR CODE %s" % error)
+		return false	
+	
+	return _config_file.get_value("color", str(eid), Color(0.335938,0.335938,0.335938,1))
+	
 
 func save_settings():
 	for section in _settings.keys():

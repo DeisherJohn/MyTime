@@ -3,7 +3,6 @@ extends Node
 
 func _ready():
 	
-#	generate_employee_csv(dbManager.getEmployee(1000), null, 0 , null, false)
 	pass
 
 

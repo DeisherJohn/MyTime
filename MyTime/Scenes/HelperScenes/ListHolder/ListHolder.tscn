@@ -6,7 +6,7 @@
 script/source = "extends PanelContainer
 
 signal update_list()
-signal load_time(employee, start, end)
+signal load_time(employee)
 
 enum BUTTON_TYPE {SIGN_IN, SIGN_OUT, UPDATE, REPORT, TIMELOG}
 
@@ -77,14 +77,7 @@ func check_clear(goodPin = false):
 				add_child(file)
 				file.connect_sig(self)
 			BUTTON_TYPE.TIMELOG:
-				emit_signal(\"load_time\", selectedEmployee, 0, null)
-#				var TimeList = timeLog.instance()
-#				get_parent().add_child(TimeList)
-#				TimeList.set_employee(selectedEmployee)
-#				TimeList.set_date_range(0,null)
-#				TimeList.fill_data()
-				
-				
+				emit_signal(\"load_time\", selectedEmployee)
 				pass
 	else:
 		print(\"BOO\")
@@ -93,7 +86,12 @@ func check_clear(goodPin = false):
 func make_file(file_loc, start = 0, end = null, simple = false):
 	if file_loc == null:
 		return
-	FileManager.generate_single_csv(selectedEmployee, file_loc, start, end, simple)"
+	var complete = FileManager.generate_employee_csv(selectedEmployee, file_loc, start, end, simple)
+	
+	var confirm = load(\"res://Scenes/HelperScenes/FileCreated.tscn\")
+	var temp = confirm.instance()
+	temp.set_text(complete)
+	add_child(temp)"
 
 [node name="ListHolder" type="PanelContainer"]
 anchor_bottom = 1.0

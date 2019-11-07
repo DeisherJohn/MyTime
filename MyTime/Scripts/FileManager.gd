@@ -1,99 +1,114 @@
 extends Node
 
+
+func _ready():
 	
-func generate_single_csv(employee, file_loc = null, start = 0, end = null, simple = true):
-	print("USE SIMPLE %s" %simple)
-	#TODO: make a single csv with simple data
-	var get_times = dbManager.getShiftTimes(employee["eid"], start, end)
+#	generate_employee_csv(dbManager.getEmployee(1000), null, 0 , null, false)
 	
-	if len(get_times) < 1:
-		return false
+	pass
+
+
+
+func generate_employee_csv(employee, file_loc = null, start = 0, end = null, simple = false):
+	
+	#Gets all the shifts this employee has between the dates
+	var shifts = dbManager.getShiftTimes(employee["eid"], start, end)
+
+	if len(shifts) < 1:
+		#make sure that there is shifts
+		return true
 	
 	if file_loc == null:
+		#if no file is given, make a file name
 		file_loc = settings.get_save_location() + employee["first_name"] + employee["last_name"] + str(OS.get_unix_time()) + ".csv"
-		
-	var keys = get_times[0].keys()
 	
 	var file = File.new()
 	
-	file.open(file_loc, file.WRITE)
-	keys.append("Time Worked")
-	file.store_csv_line(keys)
+	var error = null
 	
-	for time in get_times:
-		var line = PoolStringArray()
-		for key in keys:
-			if key == "signIn" or key == "signOut":
-				line.append(convert_unixtime_to_string_time(time[key]))
-			elif key == "Time Worked":
-				line.append(get_time_between_shifts(time["signIn"], time["signOut"] ))
-			else:
-				line.append(time[key])
+	var keys = ["employee", "id", "signIn", "signOut", "Time Worked"]
+	var existing_file = false
+	
+	if file.file_exists(file_loc):
+		error = file.open(file_loc, file.READ_WRITE)
+		file.seek_end()
+		existing_file = true
+	else:
+		error = file.open(file_loc, file.WRITE)
+	
+	if error != OK:
+		print("File error: %s" % error)
+		return false
 		
-		file.store_csv_line(line)
+	if not existing_file:
+		file.store_csv_line(keys) #Adds headers to the file
+	
+	var employee_name = employee["first_name"] + " " + employee["last_name"]
+	var total_time = 0.0
+	
+	for shift in shifts:
+		var line = PoolStringArray()
+			#name
+		var time_between = get_time_between_shifts(shift["signIn"], shift["signOut"])
+		
+		if not simple:
+			line.append(employee_name)
+			#id
+			line.append(shift["id"])
+			#signIn
+			line.append(convert_unixtime_to_string_time(shift["signIn"]))
+			#singOut
+			line.append(convert_unixtime_to_string_time(shift["signOut"]))
+			#TimeWorked
+			line.append(time_between)
+			
+			#add to file 
+			file.store_csv_line(line)
+			
+		total_time += time_between
+	
+	#Tail for file
+	var empLine = PoolStringArray()
+	empLine.append(employee_name)
+	empLine.append("TOTAL TIME BETWEEN")
+	empLine.append(convert_unixtime_to_string_time(start))
+	empLine.append(convert_unixtime_to_string_time(end))
+	empLine.append(total_time)
+	file.store_csv_line(empLine)
 	
 	file.close()
-	
+	return true
+	pass
 	
 	
 func generate_all_employee_files(file_loc = null, start = 0, end = null, simple = true):
 	
-	#open file
+	#If no file given, make the file
 	
 	if file_loc == null:
 		file_loc = settings.get_save_location() + "Report" + str(OS.get_unix_time()) + ".csv"
-		
-	var file = File.new()
-	file.open(file_loc, file.WRITE)
-
-	var keys = ["employee", "id", "signIn", "signOut", "Time Worked"]
-	file.store_csv_line(keys)
-		
-	#get employee shifts
 	
+	#Get a list of all employees
 	var employees = dbManager.getEmployeeList(false)
+
 	
 	for employee in employees:
-		var emp_name = employee["first_name"] + " " + employee["last_name"]
-		var shifts = dbManager.getShiftTimes(employee["eid"])
-		var total_time = 0.0
+		#for each employee, append to the given file
+		var good_make = generate_employee_csv(employee, file_loc, start, end, simple)
 		
-		for shift in shifts:
-			var line = PoolStringArray()
-			#name
-			if not simple:
-				line.append(emp_name)
-				#id
-				line.append(shift["id"])
-				#signIn
-				line.append(convert_unixtime_to_string_time(shift["signIn"]))
-				#singOut
-				line.append(convert_unixtime_to_string_time(shift["signOut"]))
-				#TimeWorked
-				line.append(get_time_between_shifts(shift["signIn"], shift["signOut"]))
-				
-				#add to file 
-				file.store_csv_line(line)
-				
-			total_time += get_time_between_shifts(shift["signIn"], shift["signOut"])
+		if not good_make:
+			return false
 			
-		var empLine = PoolStringArray()
-		empLine.append(emp_name)
-		empLine.append("TOTAL TIME BETWEEN")
-		empLine.append(convert_unixtime_to_string_time(start))
-		empLine.append(convert_unixtime_to_string_time(end))
-		empLine.append(total_time)
-		file.store_csv_line(empLine)
-		
-	#employee, id, start, end, time
-	
-	#close file
-	file.close()
+	return true
 	pass
 	
 	
 	
 func convert_unixtime_to_string_time(unixtime):
+	if unixtime == null:
+		unixtime = OS.get_datetime()
+		unixtime = dbManager.get_time_offset(unixtime)
+		
 	var newTime = OS.get_datetime_from_unix_time(int(unixtime))
 	var dateString = ""
 	match settings.get_date_format():

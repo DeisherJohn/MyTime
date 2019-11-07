@@ -48,7 +48,13 @@ func _on_Control_gen_all_report():
 func make_file(file_loc, start = 0, end = null, simple = true):
 	if file_loc == null:
 		return
-	FileManager.generate_all_employee_files(file_loc, start, end, simple)
+	var complete = FileManager.generate_all_employee_files(file_loc, start, end, simple)
+	
+	var confirm = load("res://Scenes/HelperScenes/FileCreated.tscn")
+	var temp = confirm.instance()
+	temp.set_text(complete)
+	add_child(temp)
+	
 	pass
 
 

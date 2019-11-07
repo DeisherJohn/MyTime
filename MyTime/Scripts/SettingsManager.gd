@@ -20,7 +20,6 @@ var _settings = {
 }
 
 func _ready():
-	save_settings()
 	var error = load_settings()
 	
 	if error == 19:
@@ -80,3 +79,14 @@ func load_settings(main_window = null):
 		var create_pin = adminPinScene.instance()
 		main_window.add_child(create_pin)
 		create_pin.show_win()
+
+
+func delete_files():
+	var del_dir = Directory.new()
+	
+	del_dir.remove(SAVE_PATH)
+	dbManager.closeDB()
+	del_dir.remove(get_db_location())
+	get_tree().quit()
+	
+	pass

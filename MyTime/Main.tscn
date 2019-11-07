@@ -31,6 +31,35 @@ margin_left = 319.0
 margin_right = 634.0
 margin_bottom = 600.0
 title = "Signed In"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -214.0
+margin_bottom = 118.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 207.0
+margin_bottom = 111.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+text = "WARNING: THIS BUTTON CLEARS THE DB AND USER SETTINGS"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 200.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 100, 50 )
+custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
+text = "Clear Data"
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder" method="add_employees"]
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="add_new_employee" from="Control" to="." method="_on_Control_add_new_employee"]
@@ -41,3 +70,4 @@ title = "Signed In"
 [connection signal="view_time_log" from="Control" to="." method="_on_Control_view_time_log"]
 [connection signal="update_list" from="HBoxContainer/ListHolder" to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="update_list" from="HBoxContainer/ListHolder2" to="HBoxContainer/ListHolder" method="add_employees"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

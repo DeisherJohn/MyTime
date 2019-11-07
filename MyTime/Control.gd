@@ -55,6 +55,10 @@ func _on_FileDialog_popup_hide():
 func roll_date_back(days):
 	var last_day = end.get_date()
 	
+	if last_day["day"] == "" or last_day["month"] == "" or last_day["year"] == "":
+		end.set_date()
+		last_day = end.get_date()
+	
 	last_day = OS.get_unix_time_from_datetime(last_day) - (days * 24 * 60 * 60) # times hours, minutes, seconds
 	var temp = Dictionary()
 	temp["startDate"] = last_day

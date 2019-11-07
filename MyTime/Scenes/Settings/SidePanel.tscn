@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Settings/SidePanel.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/AboutDocumentation/AboutWindow.tscn" type="PackedScene" id=2]
 
 [node name="SidePanel" type="Control"]
 anchor_left = 0.5
@@ -153,9 +154,13 @@ mode = 2
 access = 2
 current_dir = "C:/Users/John Deisher/Documents/GitHub/MyTime/MyTime"
 current_path = "C:/Users/John Deisher/Documents/GitHub/MyTime/MyTime/"
+
+[node name="AboutWindow" parent="." instance=ExtResource( 2 )]
+visible = false
 [connection signal="toggled" from="PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer/CheckBoxMM" to="." method="_on_CheckBoxMM_toggled"]
 [connection signal="toggled" from="PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer/CheckBoxDD" to="." method="_on_CheckBoxDD_toggled"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer2/ButtonAbout" to="." method="_on_ButtonAbout_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer2/ButtonSave" to="." method="_on_ButtonSave_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer2/ButtonCancel" to="." method="_on_ButtonCancel_pressed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="_on_FileDialog_dir_selected"]

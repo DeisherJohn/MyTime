@@ -13,7 +13,7 @@ func _ready():
 
 func set_time_record(data):
 	time_record = data
-	time_worked = FileManager.get_time_between_shifts(time_record["signIn"], time_record["signOut"])
+	time_worked = FileManager.get_time_between_shifts(time_record["signIn"], time_record["signOut"]) if time_record["signOut"] != 0 else 0.0
 	$HBoxContainer/labelID.set_text(str(time_record["id"]))
 	$HBoxContainer/labelSignIn.set_text(FileManager.convert_unixtime_to_string_time(time_record["signIn"]))
 	$HBoxContainer/labelSignOut.set_text(FileManager.convert_unixtime_to_string_time(time_record["signOut"]))

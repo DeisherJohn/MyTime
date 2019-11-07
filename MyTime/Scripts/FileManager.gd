@@ -103,9 +103,15 @@ func generate_all_employee_files(file_loc = null, start = 0, end = null, simple 
 	
 	
 func convert_unixtime_to_string_time(unixtime):
+	
+	
+	
 	if unixtime == null:
 		unixtime = OS.get_datetime()
 		unixtime = dbManager.get_time_offset(unixtime)
+		
+	if unixtime == 0:
+		return "Still signed in"
 		
 	var newTime = OS.get_datetime_from_unix_time(int(unixtime))
 	var dateString = ""
@@ -132,6 +138,9 @@ func convert_unixtime_to_string_time(unixtime):
 	pass
 	
 func get_time_between_shifts(timeIn, timeOut):
+	if timeIn > timeOut:
+		return 0
+	
 	var timeWorked = timeOut - timeIn
 	timeWorked = timeWorked/(60.0 * 60.0)
 	timeWorked *= 10000

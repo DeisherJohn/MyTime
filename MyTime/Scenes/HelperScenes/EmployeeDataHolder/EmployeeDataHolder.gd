@@ -37,7 +37,7 @@ func set_data(employee):
 
 
 func _on_Button_pressed():
-	if pin == _employee["pin"] or pin == settings.get_admin_pin():
+	if (pin == _employee["pin"] and button_mode != button_type.REPORT) or pin == settings.get_admin_pin():
 		emit_signal("button_press", _employee)		
 		pin = null
 

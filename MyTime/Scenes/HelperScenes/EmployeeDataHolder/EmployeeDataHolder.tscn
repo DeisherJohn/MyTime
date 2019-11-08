@@ -1,29 +1,19 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.tres" type="StyleBox" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.847059, 0.847059, 0.847059, 1 )
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.25098, 0.25098, 0.25098, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 script/source = "extends HBoxContainer
 
 func _on_EmployeeDataHolder_update_data(employee):
 	$LabelName.set_text(employee[\"first_name\"] + \" \" + employee[\"last_name\"])
 "
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=3]
 script/source = "extends HBoxContainer
 
 func _ready():
@@ -35,7 +25,7 @@ func _on_EmployeeDataHolder_update_data(employee):
 	pass # Replace with function body.
 "
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=4]
 script/source = "extends LineEdit
 
 func _ready():
@@ -76,7 +66,7 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panelf = SubResource( 1 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = ExtResource( 2 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -111,7 +101,7 @@ margin_right = 226.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = SubResource( 3 )
+script = SubResource( 2 )
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 margin_top = 1.0
@@ -135,11 +125,12 @@ margin_right = 226.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = SubResource( 4 )
+script = SubResource( 3 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_right = 66.0
+margin_right = 80.0
 margin_bottom = 24.0
+size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
 margin_top = 5.0
@@ -157,11 +148,29 @@ margin_bottom = 19.0
 text = "XXXX"
 valign = 1
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 91.0
+margin_right = 157.0
+margin_bottom = 24.0
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer3"]
+margin_top = 5.0
+margin_right = 37.0
+margin_bottom = 19.0
+text = "Color:"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer3"]
+margin_left = 41.0
+margin_right = 66.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 25, 0 )
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 168.0
 margin_right = 226.0
 margin_bottom = 24.0
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
 margin_right = 58.0
@@ -170,7 +179,7 @@ max_length = 4
 secret = true
 clear_button_enabled = true
 placeholder_text = "pin"
-script = SubResource( 6 )
+script = SubResource( 4 )
 
 [node name="Button" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_left = 230.0
@@ -185,6 +194,9 @@ script = SubResource( 5 )
 [connection signal="update_button_text" from="." to="MarginContainer/HBoxContainer/Button" method="_on_EmployeeDataHolder_update_button_text"]
 [connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" method="_on_EmployeeDataHolder_update_data"]
 [connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" method="_on_EmployeeDataHolder_update_data"]
+[connection signal="color_changed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer3/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
+[connection signal="popup_closed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer3/ColorPickerButton" to="." method="_on_ColorPickerButton_popup_closed"]
 [connection signal="text_changed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="text_entered" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Button" to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" method="_on_Button_pressed"]

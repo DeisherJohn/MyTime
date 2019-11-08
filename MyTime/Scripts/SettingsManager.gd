@@ -1,6 +1,6 @@
 extends Node
 
-const SAVE_PATH = "res://config.cfg"
+const SAVE_PATH = "user://config.cfg"
 
 enum DATE_FORMAT {MMDDYYYY = 0, DDMMYYYY = 1}
 
@@ -8,15 +8,26 @@ var _config_file = ConfigFile.new()
 
 var _settings = {
 	"hidden":{
-		"admin_pin":"0000"
+		"admin_pin":"0000",
+		"first_run":true
 	},
 	"date":{
 		"format":DATE_FORMAT.MMDDYYYY
+	},
+	"files":{
+		"save_location":OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS) + "\\",
+		"database_location":"user://data.sql"
 	}
 }
 
 func _ready():
-	load_settings()
+	
+	var error = load_settings()
+	
+	if error == OK:
+		#First run
+		print("Save file did not open, ERROR: %s" %error)
+		 
 	OS.set_low_processor_usage_mode(true) 
 
 
@@ -28,6 +39,42 @@ func get_admin_pin():
 	
 func get_date_format():
 	return _settings["date"]["format"]
+	
+func set_date_format(value):
+	_settings["date"]["format"] = value
+	
+func get_save_location():
+	return _settings["files"]["save_location"]
+	
+func set_save_location(path):
+	_settings["files"]["save_location"] = path
+
+func get_db_location():
+	return _settings["files"]["database_location"]
+	
+func set_db_location(path):
+	_settings["files"]["database_location"] = path
+	
+func get_first_run():
+	return _settings["hidden"]["first_run"]
+	
+func set_first_run(value : bool):
+	if value == null: return
+	_settings["hidden"]["first_run"] = value
+	
+func set_employee_color(eid, color):
+	_config_file.set_value("color", str(eid), color)
+	_config_file.save(SAVE_PATH)	
+	
+func get_employee_color(eid):
+	var error = _config_file.load(SAVE_PATH)
+	
+	if error != OK:
+		print("FAILED TO LOAD SETTINS: ERROR CODE %s" % error)
+		return false	
+	
+	return _config_file.get_value("color", str(eid), Color(0.335938,0.335938,0.335938,1))
+	
 
 func save_settings():
 	for section in _settings.keys():
@@ -41,7 +88,8 @@ func load_settings(main_window = null):
 	
 	if error != OK:
 		print("FAILED TO LOAD SETTINS: ERROR CODE %s" % error)
-		return null
+		
+		return error
 	
 	for section in _settings.keys():
 		for key in _settings[section]:
@@ -53,3 +101,14 @@ func load_settings(main_window = null):
 		var create_pin = adminPinScene.instance()
 		main_window.add_child(create_pin)
 		create_pin.show_win()
+
+
+func delete_files():
+	var del_dir = Directory.new()
+	
+	del_dir.remove(SAVE_PATH)
+	dbManager.closeDB()
+	del_dir.remove(get_db_location())
+	get_tree().quit()
+	
+	pass

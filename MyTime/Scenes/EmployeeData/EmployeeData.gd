@@ -13,7 +13,8 @@ func _ready():
 
 func connect_update_list(target):
 	var error = connect("update_list", target, "update_employee_list")
-	print(error)
+	if error != OK:
+		print("ERROR CONNECTING SIG: %s" % error)
 	
 func set_to_update():
 	update_employee = true

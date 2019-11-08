@@ -1,0 +1,273 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/SetupUI/SetupScene.gd" type="Script" id=1]
+
+[node name="SetupScene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="FileDialogDB" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 600, 400 )
+window_title = "Open a Directory"
+mode = 2
+access = 2
+show_hidden_files = true
+current_dir = "C:/Users/John Deisher/Documents/GitHub/MyTime/MyTime"
+current_path = "C:/Users/John Deisher/Documents/GitHub/MyTime/MyTime/"
+
+[node name="FileDialogReport" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 600, 400 )
+window_title = "Open a Directory"
+mode = 2
+access = 2
+show_hidden_files = true
+current_dir = "C:/Users/John Deisher/Documents/GitHub/MyTime/MyTime"
+current_path = "C:/Users/John Deisher/Documents/GitHub/MyTime/MyTime/"
+
+[node name="Popup" type="Popup" parent="."]
+editor/display_folded = true
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+popup_exclusive = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.31708
+margin_top = -1.32684
+margin_right = 3.31714
+margin_bottom = -1.32684
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup/PanelContainer"]
+margin_left = 362.0
+margin_top = 80.0
+margin_right = 662.0
+margin_bottom = 520.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/PanelContainer/MarginContainer"]
+margin_right = 300.0
+margin_bottom = 440.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 14.0
+text = "First Run Settings"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 300.0
+margin_bottom = 22.0
+
+[node name="Label2" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 26.0
+margin_right = 300.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 0, 30 )
+text = "Database Location:"
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 60.0
+margin_right = 300.0
+margin_bottom = 84.0
+
+[node name="LineDBPath" type="LineEdit" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 183.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+editable = false
+
+[node name="ButtonDBBrowse" type="Button" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 187.0
+margin_right = 248.0
+margin_bottom = 24.0
+text = "Custom"
+
+[node name="ButtonReset" type="Button" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 252.0
+margin_right = 300.0
+margin_bottom = 24.0
+text = "Reset"
+
+[node name="HSeparator2" type="HSeparator" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 88.0
+margin_right = 300.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="Label3" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 104.0
+margin_right = 300.0
+margin_bottom = 134.0
+rect_min_size = Vector2( 0, 30 )
+text = "Default Report Location:"
+valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 138.0
+margin_right = 300.0
+margin_bottom = 162.0
+
+[node name="LineReport" type="LineEdit" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 237.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+editable = false
+
+[node name="ButtonReportBrowse" type="Button" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 241.0
+margin_right = 300.0
+margin_bottom = 24.0
+text = "Browse"
+
+[node name="HSeparator3" type="HSeparator" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 166.0
+margin_right = 300.0
+margin_bottom = 178.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 182.0
+margin_right = 300.0
+margin_bottom = 234.0
+
+[node name="Label" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+margin_top = 10.0
+margin_right = 83.0
+margin_bottom = 41.0
+text = "Date Format:
+(* = Default)"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 87.0
+margin_right = 209.0
+margin_bottom = 52.0
+
+[node name="CheckBoxMM" type="CheckBox" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
+margin_right = 122.0
+margin_bottom = 24.0
+text = "MM/DD/YYYY *"
+
+[node name="CheckBoxDD" type="CheckBox" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer"]
+margin_top = 28.0
+margin_right = 122.0
+margin_bottom = 52.0
+text = "DD/MM/YYYY"
+
+[node name="HSeparator5" type="HSeparator" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 238.0
+margin_right = 300.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="Label4" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 254.0
+margin_right = 300.0
+margin_bottom = 284.0
+rect_min_size = Vector2( 0, 30 )
+text = "Administrator Pin:"
+valign = 1
+
+[node name="Label5" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 288.0
+margin_right = 300.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 300, 30 )
+text = "This pin acts as an override pin for any pin location and is also the only pin able to generate reports and change employee logs. "
+valign = 1
+autowrap = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_left = 15.0
+margin_top = 340.0
+margin_right = 284.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_top = 13.0
+margin_right = 66.0
+margin_bottom = 27.0
+size_flags_horizontal = 0
+text = "Admin Pin"
+
+[node name="LineEditAdmin1" type="LineEdit" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 70.0
+margin_top = 8.0
+margin_right = 128.0
+margin_bottom = 32.0
+size_flags_horizontal = 2
+size_flags_vertical = 4
+max_length = 4
+clear_button_enabled = true
+
+[node name="Label2" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 132.0
+margin_top = 13.0
+margin_right = 207.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 75, 0 )
+size_flags_horizontal = 0
+text = "Confirm"
+align = 2
+
+[node name="LineEditAdmin2" type="LineEdit" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 211.0
+margin_top = 8.0
+margin_right = 269.0
+margin_bottom = 32.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+max_length = 4
+clear_button_enabled = true
+
+[node name="HSeparator4" type="HSeparator" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 384.0
+margin_right = 300.0
+margin_bottom = 396.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="ButtonAccept" type="Button" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_left = 100.0
+margin_top = 400.0
+margin_right = 200.0
+margin_bottom = 440.0
+rect_min_size = Vector2( 100, 40 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+disabled = true
+text = "Accept"
+[connection signal="dir_selected" from="FileDialogDB" to="." method="_on_FileDialogDB_dir_selected"]
+[connection signal="dir_selected" from="FileDialogReport" to="." method="_on_FileDialogReport_dir_selected"]
+[connection signal="pressed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonDBBrowse" to="." method="_on_ButtonDBBrowse_pressed"]
+[connection signal="pressed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonReset" to="." method="_on_ButtonReset_pressed"]
+[connection signal="pressed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/ButtonReportBrowse" to="." method="_on_ButtonReportBrowse_pressed"]
+[connection signal="toggled" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer/CheckBoxMM" to="." method="_on_CheckBoxMM_toggled"]
+[connection signal="toggled" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer/CheckBoxDD" to="." method="_on_CheckBoxDD_toggled"]
+[connection signal="text_changed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/LineEditAdmin1" to="." method="_on_LineEditAdmin1_text_changed"]
+[connection signal="text_changed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/LineEditAdmin2" to="." method="_on_LineEditAdmin2_text_changed"]
+[connection signal="pressed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/ButtonAccept" to="." method="_on_ButtonAccept_pressed"]

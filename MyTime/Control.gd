@@ -1,24 +1,37 @@
 extends Control
 
+export(bool) var date_only = false
+ 
 signal file_loc(path, start, end)
+signal dates_selected(start, end)
 
 var confirmed = false
 var file_path = null
+
 
 onready var start = $WindowDialog/MarginContainer/VBoxContainer/StartDate
 onready var end = $WindowDialog/MarginContainer/VBoxContainer/EndDate
 onready var simpleReport = $WindowDialog/MarginContainer/VBoxContainer/CheckBox
 
 func _ready():
-	$FileDialog.popup_centered()
-	$FileDialog.set_current_path(FileManager.DEFAULT_FILE_LOC)
+	
+	if not date_only:
+		$FileDialog.popup_centered()
+		$FileDialog.set_current_path(settings.get_save_location())
+	else:
+		$WindowDialog.popup_centered()
 	pass
 
-
+func make_date_only():
+	date_only = true
+	$FileDialog.hide()
+	$WindowDialog.popup_centered()
+	
+	
 func connect_sig(target):
 	var error = connect("file_loc", target, "make_file")
 	if error: print("ERR: %s" % error)
-	
+
 func _on_FileDialog_file_selected(path):
 	confirmed = true
 	
@@ -41,6 +54,10 @@ func _on_FileDialog_popup_hide():
 	
 func roll_date_back(days):
 	var last_day = end.get_date()
+	
+	if last_day["day"] == "" or last_day["month"] == "" or last_day["year"] == "":
+		end.set_date()
+		last_day = end.get_date()
 	
 	last_day = OS.get_unix_time_from_datetime(last_day) - (days * 24 * 60 * 60) # times hours, minutes, seconds
 	var temp = Dictionary()
@@ -80,12 +97,22 @@ func _on_ButtonAccept_pressed():
 	startDate = OS.get_unix_time_from_datetime(startDate)
 	endDate = OS.get_unix_time_from_datetime(endDate)
 	
+
 	emit_signal("file_loc", file_path, startDate , endDate, simpleReport.is_pressed())
+	emit_signal("dates_selected", startDate, endDate)
 	queue_free()
 	pass # Replace with function body.
 
 
 func _on_ButtonCancel_pressed():
 	emit_signal("file_loc", null)
+	emit_signal("dates_selected", null, null)
 	queue_free()
+	pass # Replace with function body.
+
+
+func _on_WindowDialog_popup_hide():
+	emit_signal("dates_selected", null, null)
+	emit_signal("file_loc", null)
+	#queue_free()
 	pass # Replace with function body.

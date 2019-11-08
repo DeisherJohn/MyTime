@@ -52,4 +52,5 @@ rect_min_size = Vector2( 100, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 5
 text = "Cancel"
+[connection signal="load_time" from="Panel/MarginContainer/VBoxContainer/ListHolder" to="." method="_on_ListHolder_load_time"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

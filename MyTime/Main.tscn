@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/AdminControls/AdminControls.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/HelperScenes/ListHolder/ListHolder.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/SetupUI/SetupScene.tscn" type="PackedScene" id=4]
 
 [node name="MainWindow" type="Control"]
 anchor_right = 1.0
@@ -10,10 +11,6 @@ anchor_bottom = 1.0
 script = ExtResource( 1 )
 
 [node name="Control" parent="." instance=ExtResource( 2 )]
-margin_left = 0.0
-margin_top = 0.0
-margin_right = 0.0
-margin_bottom = 0.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_bottom = 1.0
@@ -31,11 +28,46 @@ margin_left = 319.0
 margin_right = 634.0
 margin_bottom = 600.0
 title = "Signed In"
-[connection signal="update_list" from="." to="HBoxContainer/ListHolder" method="add_employees"]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -214.0
+margin_bottom = 118.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 207.0
+margin_bottom = 160.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 200, 50 )
+text = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! WARNING: THIS BUTTON CLEARS THE DB AND USER SETTINGS - THIS IS FOR TESTING ONLY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+margin_top = 103.0
+margin_right = 200.0
+margin_bottom = 153.0
+rect_min_size = Vector2( 100, 50 )
+custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
+text = "Clear Data"
+
+[node name="SetupScene" parent="." instance=ExtResource( 4 )]
+visible = false
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder2" method="add_employees"]
+[connection signal="update_list" from="." to="HBoxContainer/ListHolder" method="add_employees"]
 [connection signal="add_new_employee" from="Control" to="." method="_on_Control_add_new_employee"]
 [connection signal="gen_all_report" from="Control" to="." method="_on_Control_gen_all_report"]
 [connection signal="gen_single_report" from="Control" to="." method="_on_Control_gen_single_report"]
+[connection signal="open_settings" from="Control" to="." method="_on_Control_open_settings"]
 [connection signal="update_employees" from="Control" to="." method="_on_Control_update_employees"]
+[connection signal="view_time_log" from="Control" to="." method="_on_Control_view_time_log"]
 [connection signal="update_list" from="HBoxContainer/ListHolder" to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="update_list" from="HBoxContainer/ListHolder2" to="HBoxContainer/ListHolder" method="add_employees"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

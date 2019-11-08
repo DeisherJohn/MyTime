@@ -12,12 +12,9 @@ func show_win():
 
 func _on_Button_pressed():
 	if pin1.is_valid_integer():
-		print("PIN IS GOOD")
 		settings.set_admin_pin(pin1)
 		settings.save_settings()
 		self.queue_free()
-	else:
-		print("PIN IS BAD")
 	pass # Replace with function body.
 
 

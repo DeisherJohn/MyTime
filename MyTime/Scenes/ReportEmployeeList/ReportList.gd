@@ -7,9 +7,18 @@ var selected_employee = null
 var _start = null
 var _end = null
 
+onready var list = $Panel/MarginContainer/VBoxContainer/ListHolder
+
 func _on_Button_pressed():
 	get_parent().update_employee_list()
-	get_parent().time_log_open = false
+	
+	match list.list_type:
+		list.BUTTON_TYPE.REPORT:
+			get_parent().report_log_open = false
+		list.BUTTON_TYPE.TIMELOG:
+			get_parent().time_log_open = false
+		_:
+			pass
 	queue_free()
 	pass # Replace with function body.
 

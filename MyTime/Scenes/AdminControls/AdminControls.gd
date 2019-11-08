@@ -79,6 +79,7 @@ func _on_Timer_timeout():
 func set_current_time_text():
 	var time = OS.get_time()
 	var am_pm = "AM"
+	var minutes = ""
 	
 	if time["hour"] > 11:
 		am_pm = "PM"
@@ -87,7 +88,12 @@ func set_current_time_text():
 	if time["hour"] == 0:
 		time["hour"] = 12
 		
-	var time_string = str(time["hour"]) + ":" + str(time["minute"]) + " " + am_pm
+	if time["minute"] < 10:
+		minutes = "0"
+	
+	minutes += str(time["minute"])
+	
+	var time_string = str(time["hour"]) + ":" + minutes + " " + am_pm
 	#print(time_string)
 	$PanelContainer/VBoxContainer/Clock/HBoxContainer/LabelTime.set_text(time_string)
 	

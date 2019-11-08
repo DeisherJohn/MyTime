@@ -26,7 +26,7 @@ Once a pin has been entered the program is ready to use, the following is the op
 
 - View Employee Log:
     - This options pulls an employees shift information for a selected time range, this will work with both the employee pin and the Admin pin, but only an Admin pin can change a time record. 
-    - should an record need to be updated, once it has been selected the Admin can enter the pin to save any corrected data to the database. 
+    - should a record need to be updated, once it has been selected the Admin can enter the pin to save any corrected data to the database. 
 
 - Gen. Single Report:
     - This options allows two report types to be created for a single employee

@@ -1,10 +1,12 @@
 # MyTime
+Latest Release: https://uploadfiles.io/1ifjmizl
+
 
 Thank you for using MyTime.
 
 This software was created by John Deisher to help small businesses manage employee time sheets without needing to hassle with monthly payment or lots of technical setup. 
 
-This software uses a simple SQL database saved locally so that your information is always available to you. Should you even want to migrate to an enterprise level time tracking solution SQL database often can be migrated and since it is your data saved locally you won't lose it just because you change software. 
+This software uses a simple SQL database saved locally so that your information is always available to you. Should you even want to migrate to an enterprise level time tracking solution, SQL databases often can be migrated and since it is your data saved locally you won't lose it just because you change software. 
 
 Should you have any inquiries about the software feel free to reach out to me via the following ways:
 

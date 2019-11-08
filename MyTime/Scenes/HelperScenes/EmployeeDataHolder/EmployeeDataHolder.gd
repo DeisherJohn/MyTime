@@ -11,6 +11,7 @@ signal button_press(employee)
 var _employee = null
 
 var pin = null
+var override_pin = false
 
 var style = StyleBoxFlat.new()
 var bgColor = Color(0)
@@ -51,7 +52,7 @@ func set_data(employee):
 
 
 func _on_Button_pressed():
-	if (pin == _employee["pin"] and button_mode != button_type.REPORT) or pin == settings.get_admin_pin():
+	if (pin == _employee["pin"] and button_mode != button_type.REPORT) or pin == settings.get_admin_pin() or override_pin:
 		settings.set_employee_color(_employee["eid"], bgColor)
 		emit_signal("button_press", _employee)		
 		pin = null
@@ -67,6 +68,7 @@ func _on_LineEdit_text_changed(new_text):
 
 
 func _on_LineEdit_text_entered(new_text):
+	pin = new_text
 	_on_Button_pressed()
 	pass # Replace with function body.
 
@@ -81,3 +83,6 @@ func _on_ColorPickerButton_popup_closed():
 	$Panel.get_stylebox("panel", "").set_bg_color(bgColor)
 	settings.set_employee_color(_employee["eid"], bgColor)
 	pass # Replace with function body.
+	
+func set_override_pin(value):
+	override_pin = value

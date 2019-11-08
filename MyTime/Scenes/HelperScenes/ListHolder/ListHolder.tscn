@@ -7,25 +7,36 @@ script/source = "extends PanelContainer
 
 signal update_list()
 signal load_time(employee)
+signal set_override(value)
 
 enum BUTTON_TYPE {SIGN_IN, SIGN_OUT, UPDATE, REPORT, TIMELOG}
 
 export var title : String = \"TITLE\"
 export(BUTTON_TYPE) var list_type : int
 
+var admin_override = \"\"
+
 var employeeCard = preload(\"res://Scenes/HelperScenes/EmployeeDataHolder/EmployeeDataHolder.tscn\")
 var employeeData = preload(\"res://Scenes/EmployeeData/EmployeeData.tscn\")
 var fileSelect = preload(\"res://Scenes/HelperScenes/FileSave.tscn\")
 #var timeLog = preload(\"res://Scenes/ReportScenes/ReportTimeLog.tscn\")
 var selectedEmployee = null
+var bulk_edit_enabled = false
 
 func _ready():
-	$VBoxContainer/Label.set_text(title)
+	$VBoxContainer/HBoxContainer/Label.set_text(title)
+	
+	if list_type == BUTTON_TYPE.SIGN_IN or list_type == BUTTON_TYPE.SIGN_OUT:
+		set_bulk_visability(true)
+	else:
+		set_bulk_visability(false)
+		
 	add_employees()
 	pass
 
 func add_employee_card(employee):
 	var employee_card = employeeCard.instance()
+	connect(\"set_override\", employee_card, \"set_override_pin\")
 	employee_card.set_data(employee)
 	employee_card.set_button_text(list_type) 
 	
@@ -51,6 +62,7 @@ func add_employees():
 		elif list_type == BUTTON_TYPE.UPDATE or list_type == BUTTON_TYPE.REPORT or list_type == BUTTON_TYPE.TIMELOG:
 			add_employee_card(employee)
 		pass
+	emit_signal(\"set_override\", bulk_edit_enabled)
 		
 		
 func employee_selected(employee):
@@ -83,8 +95,6 @@ func check_clear(goodPin = false):
 			BUTTON_TYPE.TIMELOG:
 				emit_signal(\"load_time\", selectedEmployee)
 				pass
-	else:
-		print(\"BOO\")
 
 
 func make_file(file_loc, start = 0, end = null, simple = false):
@@ -100,7 +110,31 @@ func make_file(file_loc, start = 0, end = null, simple = false):
 func update_employee_list():
 	add_employees()
 
-"
+
+
+func _on_LineEditAdminOverride_text_changed(new_text):
+	admin_override = new_text
+	if admin_override == settings.get_admin_pin():
+		$VBoxContainer/HBoxContainer/ButtonBulkEdit.set_disabled(false)
+	else:
+		$VBoxContainer/HBoxContainer/ButtonBulkEdit.set_disabled(true)
+		$VBoxContainer/HBoxContainer/ButtonBulkEdit.set_pressed(false)
+		bulk_edit_enabled = false
+		emit_signal(\"set_override\", bulk_edit_enabled)
+	pass # Replace with function body.
+
+
+func _on_ButtonBulkEdit_toggled(button_pressed):
+	bulk_edit_enabled = button_pressed
+	emit_signal(\"set_override\", bulk_edit_enabled)
+	pass # Replace with function body.
+
+
+func set_bulk_visability(value):
+	$VBoxContainer/HBoxContainer/LineEditAdminOverride.set_visible(value)
+	$VBoxContainer/HBoxContainer/ButtonBulkEdit.set_visible(value)
+	
+	pass"
 
 [node name="ListHolder" type="PanelContainer"]
 anchor_bottom = 1.0
@@ -110,26 +144,62 @@ script = SubResource( 1 )
 title = "Signed Out"
 list_type = 1
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 319.0
+margin_bottom = 593.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 319.0
 margin_bottom = 593.0
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 312.0
-margin_bottom = 14.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_right = 250.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
 text = "Title"
 align = 1
 valign = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 18.0
+[node name="LineEditAdminOverride" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+margin_left = 254.0
+margin_top = 8.0
 margin_right = 312.0
-margin_bottom = 22.0
+margin_bottom = 32.0
+size_flags_vertical = 4
+max_length = 4
+secret = true
+clear_button_enabled = true
+placeholder_text = "Admin"
+
+[node name="ButtonBulkEdit" type="Button" parent="VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 233.0
+margin_top = 5.0
+margin_right = 301.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 60, 30 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+disabled = true
+toggle_mode = true
+text = "Bulk Edit"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 44.0
+margin_right = 312.0
+margin_bottom = 48.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-margin_top = 26.0
+margin_top = 52.0
 margin_right = 312.0
 margin_bottom = 586.0
 size_flags_horizontal = 3
@@ -147,3 +217,5 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 300.0
 margin_bottom = 50.0
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/LineEditAdminOverride" to="." method="_on_LineEditAdminOverride_text_changed"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/ButtonBulkEdit" to="." method="_on_ButtonBulkEdit_toggled"]

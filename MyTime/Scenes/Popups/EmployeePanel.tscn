@@ -1,0 +1,109 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/HelperScenes/ListHolder/ListHolder.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends WindowDialog
+
+signal call_update()
+
+var datePicker = preload(\"res://Scenes/HelperScenes/FileSave.tscn\")
+var timeLog = preload(\"res://Scenes/ReportScenes/ReportTimeLog.tscn\")
+
+var selected_employee = null
+
+enum BUTTON_TYPE {SIGN_IN, SIGN_OUT, UPDATE, REPORT, TIMELOG}
+
+export(BUTTON_TYPE) var list_type : int
+onready var list = $VBoxContainer/ListHolder
+
+func _ready():
+	set_type(list_type)
+#	show_center()
+	pass
+
+func set_type(value):
+	list.set_type(value)
+	
+	match value:
+		BUTTON_TYPE.UPDATE:
+			list.set_title(\"Select employee to update.\")
+		BUTTON_TYPE.REPORT:
+			list.set_title(\"Select employee to gen report.\")
+		BUTTON_TYPE.TIMELOG:
+			list.set_title( \"Select employee to view log.\")
+			
+	
+func show_center():
+	list.update_employee_list()
+	self.popup_centered()
+
+func _on_ListHolder_load_time(employee):
+	selected_employee = employee
+	
+	var date = datePicker.instance()
+	date.make_date_only()
+	get_parent().add_child(date)
+	date.connect(\"dates_selected\", self, \"show_time_log\")
+	
+func show_time_log(start, end):
+	if start == null and end == null:
+		return
+		
+	var TimeList = timeLog.instance()
+	get_parent().add_child(TimeList)
+	TimeList.set_employee(selected_employee)
+	TimeList.set_date_range(start,end)
+	TimeList.fill_data()
+	pass
+
+func _on_Button_pressed():
+	self.hide()
+
+
+func _on_EmployeePanel_popup_hide():
+	emit_signal(\"call_update\")
+	pass # Replace with function body.
+"
+
+[node name="EmployeePanel" type="WindowDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -223.512
+margin_top = -238.273
+margin_right = 106.488
+margin_bottom = 209.727
+rect_min_size = Vector2( 330, 200 )
+script = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -10.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ListHolder" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_bottom = 0.0
+margin_right = 330.0
+margin_bottom = 394.0
+size_flags_vertical = 3
+list_type = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+margin_left = 115.0
+margin_top = 398.0
+margin_right = 215.0
+margin_bottom = 438.0
+rect_min_size = Vector2( 100, 40 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Cancel"
+[connection signal="popup_hide" from="." to="." method="_on_EmployeePanel_popup_hide"]
+[connection signal="load_time" from="VBoxContainer/ListHolder" to="." method="_on_ListHolder_load_time"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]

@@ -27,8 +27,6 @@ func set_to_timelog():
 
 func _on_ListHolder_load_time(employee):
 	selected_employee = employee
-	_start = 0
-	_end = null
 	
 	var date = datePicker.instance()
 	date.make_date_only()

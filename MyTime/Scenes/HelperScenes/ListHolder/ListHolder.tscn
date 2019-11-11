@@ -34,6 +34,18 @@ func _ready():
 	add_employees()
 	pass
 
+func set_title(text):
+	$VBoxContainer/HBoxContainer/Label.set_text(text)
+	
+func set_type(type):
+	list_type = type
+	
+	if list_type == BUTTON_TYPE.SIGN_IN or list_type == BUTTON_TYPE.SIGN_OUT:
+		set_bulk_visability(true)
+	else:
+		set_bulk_visability(false)
+		
+	
 func add_employee_card(employee):
 	var employee_card = employeeCard.instance()
 	connect(\"set_override\", employee_card, \"set_override_pin\")
@@ -95,7 +107,7 @@ func check_clear(goodPin = false):
 			BUTTON_TYPE.TIMELOG:
 				emit_signal(\"load_time\", selectedEmployee)
 				pass
-
+		get_parent().get_parent().hide()
 
 func make_file(file_loc, start = 0, end = null, simple = false):
 	if file_loc == null:

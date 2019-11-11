@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/AdminControls/AdminControls.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/HelperScenes/ListHolder/ListHolder.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/SetupUI/SetupScene.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Popups/EmployeePanel.tscn" type="PackedScene" id=5]
 
 [node name="MainWindow" type="Control"]
 anchor_right = 1.0
@@ -60,6 +61,21 @@ text = "Clear Data"
 
 [node name="SetupScene" parent="." instance=ExtResource( 4 )]
 visible = false
+
+[node name="EmployeePanelUpdate" parent="." instance=ExtResource( 5 )]
+margin_right = 106.488
+margin_bottom = 209.727
+list_type = 2
+
+[node name="EmployeePanelTimeLog" parent="." instance=ExtResource( 5 )]
+margin_right = 106.488
+margin_bottom = 209.727
+list_type = 4
+
+[node name="EmployeePanelReport" parent="." instance=ExtResource( 5 )]
+margin_right = 106.488
+margin_bottom = 209.727
+list_type = 3
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder" method="add_employees"]
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="add_new_employee" from="Control" to="." method="_on_Control_add_new_employee"]
@@ -71,3 +87,6 @@ visible = false
 [connection signal="update_list" from="HBoxContainer/ListHolder" to="HBoxContainer/ListHolder2" method="add_employees"]
 [connection signal="update_list" from="HBoxContainer/ListHolder2" to="HBoxContainer/ListHolder" method="add_employees"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="call_update" from="EmployeePanelUpdate" to="." method="_on_EmployeePanelUpdate_call_update"]
+[connection signal="call_update" from="EmployeePanelTimeLog" to="." method="_on_EmployeePanelUpdate_call_update"]
+[connection signal="call_update" from="EmployeePanelReport" to="." method="_on_EmployeePanelUpdate_call_update"]

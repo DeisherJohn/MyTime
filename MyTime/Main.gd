@@ -33,19 +33,21 @@ func update_employee_list():
 	pass
 
 func _on_Control_update_employees():
-	if not update_list_open:
-		var updateList = load("res://Scenes/UpdateEmployeeList/UpdateList.tscn")
-		add_child(updateList.instance())
-		update_list_open = true
+#	if not update_list_open:
+#		var updateList = load("res://Scenes/UpdateEmployeeList/UpdateList.tscn")
+#		add_child(updateList.instance())
+#		update_list_open = true
+	$EmployeePanelUpdate.show_center()
 	pass # Replace with function body.
 
 
 func _on_Control_gen_single_report():
-	if not report_log_open:
-		var single_report = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
-		add_child(single_report.instance())
-		report_log_open = true
-		pass # Replace with function body.
+	$EmployeePanelReport.show_center()
+#	if not report_log_open:
+#		var single_report = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
+#		add_child(single_report.instance())
+#		report_log_open = true
+	pass # Replace with function body.
 
 
 func _on_Control_gen_all_report():
@@ -79,14 +81,20 @@ func _on_Control_open_settings():
 
 
 func _on_Control_view_time_log():
-	if not time_log_open:
-		var timeLogList = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
-		var panel = timeLogList.instance()
-		panel.set_to_timelog()
-		add_child(panel)
-		time_log_open = true
+	$EmployeePanelTimeLog.show_center()
+#	if not time_log_open:
+#		var timeLogList = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
+#		var panel = timeLogList.instance()
+#		panel.set_to_timelog()
+#		add_child(panel)
+#		time_log_open = true
 
 
 func _on_Button_pressed():
 	settings.delete_files()
+	pass # Replace with function body.
+
+
+func _on_EmployeePanelUpdate_call_update():
+	update_employee_list()
 	pass # Replace with function body.

@@ -45,6 +45,7 @@ func _on_Button_pressed():
 	if admin_pin == null: return
 	
 	var employee = null
+	
 	if admin_pin["pin"] == settings.get_admin_pin():
 		employee = pull_data()
 		var newDate = OS.get_date()

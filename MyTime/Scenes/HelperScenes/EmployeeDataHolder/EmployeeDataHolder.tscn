@@ -192,8 +192,8 @@ size_flags_vertical = 4
 text = "Update"
 script = SubResource( 5 )
 [connection signal="update_button_text" from="." to="MarginContainer/HBoxContainer/Button" method="_on_EmployeeDataHolder_update_button_text"]
-[connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" method="_on_EmployeeDataHolder_update_data"]
 [connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2" method="_on_EmployeeDataHolder_update_data"]
+[connection signal="update_data" from="." to="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" method="_on_EmployeeDataHolder_update_data"]
 [connection signal="color_changed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer3/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
 [connection signal="popup_closed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer3/ColorPickerButton" to="." method="_on_ColorPickerButton_popup_closed"]
 [connection signal="text_changed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/LineEdit" to="." method="_on_LineEdit_text_changed"]

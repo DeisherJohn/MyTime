@@ -31,6 +31,7 @@ margin_bottom = 600.0
 title = "Signed In"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -214.0
@@ -63,18 +64,12 @@ text = "Clear Data"
 visible = false
 
 [node name="EmployeePanelUpdate" parent="." instance=ExtResource( 5 )]
-margin_right = 106.488
-margin_bottom = 209.727
 list_type = 2
 
 [node name="EmployeePanelTimeLog" parent="." instance=ExtResource( 5 )]
-margin_right = 106.488
-margin_bottom = 209.727
 list_type = 4
 
 [node name="EmployeePanelReport" parent="." instance=ExtResource( 5 )]
-margin_right = 106.488
-margin_bottom = 209.727
 list_type = 3
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder" method="add_employees"]
 [connection signal="update_list" from="." to="HBoxContainer/ListHolder2" method="add_employees"]

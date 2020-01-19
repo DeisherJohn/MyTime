@@ -99,15 +99,22 @@ func check_clear(goodPin = false):
 				updateEmpData.connect(\"update_list\", self, \"update_employee_list\")
 				updateEmpData.set_data(selectedEmployee)
 				updateEmpData.set_to_update()
+				print(get_parent().get_parent().name)
+				get_parent().get_parent().hide()
 			BUTTON_TYPE.REPORT:
 				#pull up a list that can be used to make a report
 				var file = fileSelect.instance()
+				print(get_parent().get_parent().name)
+				get_parent().get_parent().hide()
 				add_child(file)
 				file.connect_sig(self)
 			BUTTON_TYPE.TIMELOG:
 				emit_signal(\"load_time\", selectedEmployee)
+				print(get_parent().get_parent().name)
+				get_parent().get_parent().hide()
 				pass
-		get_parent().get_parent().hide()
+		print(get_parent().get_parent().name)
+		#get_parent().get_parent().hide()
 
 func make_file(file_loc, start = 0, end = null, simple = false):
 	if file_loc == null:
@@ -159,21 +166,21 @@ list_type = 1
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 308.0
+margin_right = 319.0
 margin_bottom = 593.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 308.0
+margin_right = 319.0
 margin_bottom = 593.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 301.0
+margin_right = 312.0
 margin_bottom = 40.0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_right = 239.0
+margin_right = 250.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
@@ -182,9 +189,9 @@ align = 1
 valign = 1
 
 [node name="LineEditAdminOverride" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
-margin_left = 243.0
+margin_left = 254.0
 margin_top = 8.0
-margin_right = 301.0
+margin_right = 312.0
 margin_bottom = 32.0
 size_flags_vertical = 4
 max_length = 4
@@ -207,19 +214,20 @@ text = "Bulk Edit"
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 44.0
-margin_right = 301.0
+margin_right = 312.0
 margin_bottom = 48.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 margin_top = 52.0
-margin_right = 301.0
+margin_right = 312.0
 margin_bottom = 586.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
-margin_right = 300.0
+margin_left = 6.0
+margin_right = 306.0
 margin_bottom = 50.0
 size_flags_horizontal = 6
 

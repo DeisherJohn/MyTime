@@ -12,7 +12,8 @@ var _settings = {
 		"first_run":true
 	},
 	"date":{
-		"format":DATE_FORMAT.MMDDYYYY
+		"format":DATE_FORMAT.MMDDYYYY,
+		"hr_mm_format":true
 	},
 	"files":{
 		"save_location":OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS) + "\\",
@@ -21,7 +22,6 @@ var _settings = {
 }
 
 func _ready():
-	
 	var error = load_settings()
 	
 	if error == OK:
@@ -29,7 +29,6 @@ func _ready():
 		print("Save file did not open, ERROR: %s" %error)
 		 
 	OS.set_low_processor_usage_mode(true) 
-
 
 func set_admin_pin(pin):
 	_settings["hidden"]["admin_pin"] = pin
@@ -102,6 +101,15 @@ func load_settings(main_window = null):
 		main_window.add_child(create_pin)
 		create_pin.show_win()
 
+func get_hr_mm():
+	return _settings["date"]["hr_mm_format"]
+	
+func set_hr_mm_format(value : bool):
+	if value == null:
+		return 
+		
+	_settings["date"]["hr_mm_format"] = value
+	save_settings()
 
 func delete_files():
 	var del_dir = Directory.new()

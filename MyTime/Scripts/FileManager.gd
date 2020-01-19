@@ -24,7 +24,13 @@ func generate_employee_csv(employee, file_loc = null, start = 0, end = null, sim
 	
 	var error = null
 	
-	var keys = ["employee", "id", "signIn", "signOut", "Time Worked"]
+	var keys = null
+	
+	if settings.get_hr_mm():
+		keys = ["employee", "id", "signIn", "signOut", "hours worked", "minutes worked"]
+	else:
+		keys = ["employee", "id", "signIn", "signOut", "time worked"]
+		
 	var existing_file = false
 	
 	if file.file_exists(file_loc):
@@ -42,7 +48,10 @@ func generate_employee_csv(employee, file_loc = null, start = 0, end = null, sim
 		file.store_csv_line(keys) #Adds headers to the file
 	
 	var employee_name = employee["first_name"] + " " + employee["last_name"]
-	var total_time = 0.0
+	var total_time = Dictionary()
+	
+	total_time["hours"] = 0
+	total_time["minutes"] = 0
 	
 	for shift in shifts:
 		var line = PoolStringArray()
@@ -58,12 +67,23 @@ func generate_employee_csv(employee, file_loc = null, start = 0, end = null, sim
 			#singOut
 			line.append(convert_unixtime_to_string_time(shift["signOut"]))
 			#TimeWorked
-			line.append(time_between)
+			if settings.get_hr_mm():
+				line.append(time_between["hours"])
+				line.append(time_between["minutes"])
+			else:
+				line.append(time_between["report"])
 			
 			#add to file 
 			file.store_csv_line(line)
-			
-		total_time += time_between
+		
+		
+		total_time["hours"] += time_between["hours"]
+		total_time["minutes"] += time_between["minutes"]
+		
+	
+	while total_time["minutes"] >= 60:
+		total_time["minutes"] -= 60
+		total_time["hours"] += 1
 	
 	#Tail for file
 	var empLine = PoolStringArray()
@@ -71,7 +91,16 @@ func generate_employee_csv(employee, file_loc = null, start = 0, end = null, sim
 	empLine.append("TOTAL TIME BETWEEN")
 	empLine.append(convert_unixtime_to_string_time(start))
 	empLine.append(convert_unixtime_to_string_time(end))
-	empLine.append(total_time)
+	
+	var dec_time
+	
+	if settings.get_hr_mm():
+		empLine.append(total_time["hours"])
+		empLine.append(total_time["minutes"])
+	else:
+		dec_time = total_time["hours"] + total_time["hours"]/60.0
+		empLine.append(dec_time)
+		
 	file.store_csv_line(empLine)
 	
 	file.close()
@@ -141,12 +170,25 @@ func get_time_between_shifts(timeIn, timeOut):
 	if timeIn > timeOut:
 		return 0
 	
+	var return_dict = Dictionary()
+	
 	var timeWorked = timeOut - timeIn
 	timeWorked = timeWorked/(60.0 * 60.0)
 	timeWorked *= 10000
 	timeWorked = round(timeWorked)
 	timeWorked /= 10000.0
-	return timeWorked
+	return_dict["time"] = timeWorked
+	
+	var hrs = int(timeWorked)
+	var mins = timeWorked - hrs
+	
+	mins *= 60
+	mins = round(mins)
+	
+	return_dict["report"] = timeWorked
+	return_dict["hours"] = hrs
+	return_dict["minutes"] = mins
+	return return_dict
 	
 	pass
 	

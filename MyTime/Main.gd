@@ -72,16 +72,12 @@ func make_file(file_loc, start = 0, end = null, simple = true):
 
 
 func _on_Control_open_settings():
-	if not settings_open:
-		var settingScene = load("res://Scenes/Settings/SidePanel.tscn")
-		var settingPanel = settingScene.instance()
-		add_child(settingPanel)
-		settings_open = true
-		pass # Replace with function body.
+	$SidePanel.show_center()
 
 
 func _on_Control_view_time_log():
 	$EmployeePanelTimeLog.show_center()
+	
 #	if not time_log_open:
 #		var timeLogList = load("res://Scenes/ReportEmployeeList/ReportList.tscn")
 #		var panel = timeLogList.instance()

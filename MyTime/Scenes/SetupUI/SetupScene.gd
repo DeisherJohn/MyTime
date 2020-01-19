@@ -4,6 +4,8 @@ onready var db_path = $Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxCo
 onready var report_path = $Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/LineReport
 onready var checkMM = $Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer/CheckBoxMM
 onready var checkDD = $Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer/CheckBoxDD
+onready var checkMM_full = $Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/CheckHHMM
+onready var checkMM_dec = $Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/CheckHHMMDEC
 
 var pin1 = null
 var pin2 = null
@@ -19,7 +21,13 @@ func _ready():
 	else:
 		checkMM.set_pressed(false)
 		checkDD.set_pressed(true)
-
+		
+	if settings.get_hr_mm():
+		checkMM_full.set_pressed(true)
+		checkMM_dec.set_pressed(false)
+	else:
+		checkMM_full.set_pressed(false)
+		checkMM_dec.set_pressed(true)
 
 
 func _on_CheckBoxMM_toggled(button_pressed):
@@ -83,6 +91,9 @@ func _on_ButtonAccept_pressed():
 	var format = settings.DATE_FORMAT.DDMMYYYY if checkDD.is_pressed() else settings.DATE_FORMAT.MMDDYYYY
 	settings.set_date_format(format)
 	
+	var hr_format = false if checkMM_dec.is_pressed() else true
+	settings.set_hr_mm_format(hr_format)
+	
 	settings.set_admin_pin(pin1)
 	settings.set_first_run(false)
 	
@@ -91,3 +102,13 @@ func _on_ButtonAccept_pressed():
 	queue_free()
 	
 	pass # Replace with function body.
+
+
+func _on_CheckHHMM_toggled(button_pressed):
+	if button_pressed:
+		checkMM_dec.set_pressed(false)
+
+
+func _on_CheckHHMMDEC_toggled(button_pressed):
+	if button_pressed:
+		checkMM_full.set_pressed(false)

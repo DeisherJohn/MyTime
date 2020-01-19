@@ -42,7 +42,6 @@ current_dir = "C:/Users/John Deisher/Documents/GitHub/MyTime/MyTime"
 current_path = "C:/Users/John Deisher/Documents/GitHub/MyTime/MyTime/"
 
 [node name="Popup" type="Popup" parent="."]
-editor/display_folded = true
 visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -58,15 +57,15 @@ margin_bottom = -1.32684
 
 [node name="MarginContainer" type="MarginContainer" parent="Popup/PanelContainer"]
 margin_left = 362.0
-margin_top = 80.0
+margin_top = 52.0
 margin_right = 662.0
-margin_bottom = 520.0
+margin_bottom = 548.0
 size_flags_horizontal = 6
 size_flags_vertical = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Popup/PanelContainer/MarginContainer"]
 margin_right = 300.0
-margin_bottom = 440.0
+margin_bottom = 496.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 4
 
@@ -177,24 +176,52 @@ margin_right = 122.0
 margin_bottom = 52.0
 text = "DD/MM/YYYY"
 
-[node name="HSeparator5" type="HSeparator" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
 margin_top = 238.0
 margin_right = 300.0
-margin_bottom = 250.0
+margin_bottom = 290.0
+
+[node name="Label" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
+margin_top = 10.0
+margin_right = 88.0
+margin_bottom = 41.0
+text = "Hours format:
+(* = Default)"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
+margin_left = 92.0
+margin_right = 180.0
+margin_bottom = 52.0
+
+[node name="CheckHHMM" type="CheckBox" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
+margin_right = 88.0
+margin_bottom = 24.0
+text = "HH:MM *"
+
+[node name="CheckHHMMDEC" type="CheckBox" parent="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer"]
+margin_top = 28.0
+margin_right = 88.0
+margin_bottom = 52.0
+text = "HH.mm"
+
+[node name="HSeparator5" type="HSeparator" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 294.0
+margin_right = 300.0
+margin_bottom = 306.0
 rect_min_size = Vector2( 0, 12 )
 
 [node name="Label4" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
-margin_top = 254.0
+margin_top = 310.0
 margin_right = 300.0
-margin_bottom = 284.0
+margin_bottom = 340.0
 rect_min_size = Vector2( 0, 30 )
 text = "Administrator Pin:"
 valign = 1
 
 [node name="Label5" type="Label" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
-margin_top = 288.0
+margin_top = 344.0
 margin_right = 300.0
-margin_bottom = 336.0
+margin_bottom = 392.0
 rect_min_size = Vector2( 300, 30 )
 text = "This pin acts as an override pin for any pin location and is also the only pin able to generate reports and change employee logs. "
 valign = 1
@@ -202,9 +229,9 @@ autowrap = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
 margin_left = 15.0
-margin_top = 340.0
+margin_top = 396.0
 margin_right = 284.0
-margin_bottom = 380.0
+margin_bottom = 436.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 4
 
@@ -246,16 +273,16 @@ max_length = 4
 clear_button_enabled = true
 
 [node name="HSeparator4" type="HSeparator" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
-margin_top = 384.0
+margin_top = 440.0
 margin_right = 300.0
-margin_bottom = 396.0
+margin_bottom = 452.0
 rect_min_size = Vector2( 0, 12 )
 
 [node name="ButtonAccept" type="Button" parent="Popup/PanelContainer/MarginContainer/VBoxContainer"]
 margin_left = 100.0
-margin_top = 400.0
+margin_top = 456.0
 margin_right = 200.0
-margin_bottom = 440.0
+margin_bottom = 496.0
 rect_min_size = Vector2( 100, 40 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -268,6 +295,8 @@ text = "Accept"
 [connection signal="pressed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/ButtonReportBrowse" to="." method="_on_ButtonReportBrowse_pressed"]
 [connection signal="toggled" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer/CheckBoxMM" to="." method="_on_CheckBoxMM_toggled"]
 [connection signal="toggled" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/VBoxContainer/CheckBoxDD" to="." method="_on_CheckBoxDD_toggled"]
+[connection signal="toggled" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/CheckHHMM" to="." method="_on_CheckHHMM_toggled"]
+[connection signal="toggled" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5/VBoxContainer/CheckHHMMDEC" to="." method="_on_CheckHHMMDEC_toggled"]
 [connection signal="text_changed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/LineEditAdmin1" to="." method="_on_LineEditAdmin1_text_changed"]
 [connection signal="text_changed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/LineEditAdmin2" to="." method="_on_LineEditAdmin2_text_changed"]
 [connection signal="pressed" from="Popup/PanelContainer/MarginContainer/VBoxContainer/ButtonAccept" to="." method="_on_ButtonAccept_pressed"]

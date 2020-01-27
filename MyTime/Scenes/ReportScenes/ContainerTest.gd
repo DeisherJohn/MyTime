@@ -43,7 +43,8 @@ func fill_data():
 	for shift in shifts:
 		var card = cards.instance()
 		card.set_time_record(shift)
-		time_worked += card.get_time_worked()
+		var time = card.get_time_worked()
+		time_worked += time["time"]
 		Grid.add_child(card)
 		card.connect_time_sig(self)
 	

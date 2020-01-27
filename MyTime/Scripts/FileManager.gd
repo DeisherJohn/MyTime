@@ -185,7 +185,13 @@ func get_time_between_shifts(timeIn, timeOut):
 	mins *= 60
 	mins = round(mins)
 	
-	return_dict["report"] = timeWorked
+	if settings.get_hr_mm():
+		if mins < 10: 
+			mins = "0" + str(mins)
+		
+		return_dict["report"] = str(hrs) + ":" + str(mins)
+	else:
+		return_dict["report"] = timeWorked
 	return_dict["hours"] = hrs
 	return_dict["minutes"] = mins
 	return return_dict

@@ -6,6 +6,8 @@ enum DATE_FORMAT {MMDDYYYY = 0, DDMMYYYY = 1}
 
 var _config_file = ConfigFile.new()
 
+const DEF_COLOR = Color(0.335938,0.335938,0.335938,1)
+
 var _settings = {
 	"hidden":{
 		"admin_pin":"0000",
@@ -18,6 +20,9 @@ var _settings = {
 	"files":{
 		"save_location":OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS) + "\\",
 		"database_location":"user://data.sql"
+	},
+	"color":{
+		
 	}
 }
 
@@ -50,30 +55,32 @@ func set_save_location(path):
 
 func get_db_location():
 	return _settings["files"]["database_location"]
-	
+
+
 func set_db_location(path):
 	_settings["files"]["database_location"] = path
-	
+
+
 func get_first_run():
 	return _settings["hidden"]["first_run"]
-	
+
+
 func set_first_run(value : bool):
 	if value == null: return
 	_settings["hidden"]["first_run"] = value
-	
+
+
 func set_employee_color(eid, color):
-	_config_file.set_value("color", str(eid), color)
-	_config_file.save(SAVE_PATH)	
-	
+	_settings["color"][str(eid)] = color
+	save_settings()	
+
+
 func get_employee_color(eid):
-	var error = _config_file.load(SAVE_PATH)
+	if str(eid) in _settings["color"].keys():
+		return _settings["color"][str(eid)]
 	
-	if error != OK:
-		print("FAILED TO LOAD SETTINS: ERROR CODE %s" % error)
-		return false	
-	
-	return _config_file.get_value("color", str(eid), Color(0.335938,0.335938,0.335938,1))
-	
+	return DEF_COLOR
+
 
 func save_settings():
 	for section in _settings.keys():
@@ -81,6 +88,7 @@ func save_settings():
 			_config_file.set_value(section, key, _settings[section][key])
 			
 	_config_file.save(SAVE_PATH)	
+
 
 func load_settings(main_window = null):
 	var error = _config_file.load(SAVE_PATH)
@@ -93,7 +101,14 @@ func load_settings(main_window = null):
 	for section in _settings.keys():
 		for key in _settings[section]:
 			_settings[section][key] = _config_file.get_value(section, key)
-	
+			
+	for section in _config_file.get_sections():
+		if not (section in _settings.keys()):
+			_settings[section] = Dictionary()
+			print("Adding Section: %s" % section)
+			
+		for key in _config_file.get_section_keys(section):
+			_settings[section][key] = _config_file.get_value(section, key)
 	
 	if main_window != null and get_admin_pin() == "0000":
 		var adminPinScene = load("res://Scenes/Admin_creator/AdminPin.tscn")
@@ -101,15 +116,18 @@ func load_settings(main_window = null):
 		main_window.add_child(create_pin)
 		create_pin.show_win()
 
+
 func get_hr_mm():
 	return _settings["date"]["hr_mm_format"]
-	
+
+
 func set_hr_mm_format(value : bool):
 	if value == null:
 		return 
 		
 	_settings["date"]["hr_mm_format"] = value
 	save_settings()
+
 
 func delete_files():
 	var del_dir = Directory.new()
@@ -118,5 +136,3 @@ func delete_files():
 	dbManager.closeDB()
 	del_dir.remove(get_db_location())
 	get_tree().quit()
-	
-	pass

@@ -11,7 +11,8 @@ const DEF_COLOR = Color(0.335938,0.335938,0.335938,1)
 var _settings = {
 	"hidden":{
 		"admin_pin":"0000",
-		"first_run":true
+		"first_run":true,
+		"version":"0.1.3"
 	},
 	"date":{
 		"format":DATE_FORMAT.MMDDYYYY,

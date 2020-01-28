@@ -17,7 +17,7 @@ func set_time_record(data):
 	$HBoxContainer/labelID.set_text(str(time_record["id"]))
 	$HBoxContainer/labelSignIn.set_text(FileManager.convert_unixtime_to_string_time(time_record["signIn"]))
 	$HBoxContainer/labelSignOut.set_text(FileManager.convert_unixtime_to_string_time(time_record["signOut"]))
-	$HBoxContainer/labelTimeWorked.set_text(str(time_worked))
+	$HBoxContainer/labelTimeWorked.set_text(str(time_worked["report"]))
 	pass
 
 func connect_time_sig(target):

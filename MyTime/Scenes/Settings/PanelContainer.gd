@@ -26,8 +26,6 @@ var init_position = Vector2()
 func _ready():
 	#grow = true	
 	#print(get_size())
-	init_position = get_position()
-	final_position = get_position()
 	
 	
 	match init_grow:
@@ -51,9 +49,6 @@ func _ready():
 			final_position.x -= max_x
 		d.RIGHT:
 			final_position.x += max_x
-		
-	print(init_position)
-	print(final_position)
 	pass
 
 

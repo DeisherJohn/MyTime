@@ -49,7 +49,14 @@ func fill_data():
 		card.connect_time_sig(self)
 	
 	$PanelContainer/VBoxContainer/LabelEmpName.set_text(_employee["first_name"] + " " + _employee["last_name"])
-	$PanelContainer/VBoxContainer/HBoxContainer/TimeWorked.set_text(str(time_worked))
+	
+	if settings.get_hr_mm():
+		var mm = round((time_worked - int(time_worked)) * 60)
+		var time_string = str(int(time_worked)) + "hr " + str(mm) + "min"
+		$PanelContainer/VBoxContainer/HBoxContainer/TimeWorked.set_text(time_string)
+		
+	else:
+		$PanelContainer/VBoxContainer/HBoxContainer/TimeWorked.set_text(str(time_worked))
 	
 	
 func fill_time_entry(time_log):
@@ -70,7 +77,7 @@ func fill_time_entry(time_log):
 	
 	var time_worked = FileManager.get_time_between_shifts(time_log["signIn"], time_log["signOut"])
 	
-	$WindowDialog/MarginContainer/VBoxContainer/HBoxContainer4/TimeWorked.set_text(str(time_worked))
+	$WindowDialog/MarginContainer/VBoxContainer/HBoxContainer4/TimeWorked.set_text(str(time_worked["report"]))
 	
 	
 	

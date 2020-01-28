@@ -94,6 +94,5 @@ func set_current_time_text():
 	minutes += str(time["minute"])
 	
 	var time_string = str(time["hour"]) + ":" + minutes + " " + am_pm
-	#print(time_string)
 	$PanelContainer/VBoxContainer/Clock/HBoxContainer/LabelTime.set_text(time_string)
 	

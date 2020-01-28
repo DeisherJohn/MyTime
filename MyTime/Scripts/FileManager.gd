@@ -77,8 +77,8 @@ func generate_employee_csv(employee, file_loc = null, start = 0, end = null, sim
 			file.store_csv_line(line)
 		
 		
-		total_time["hours"] += time_between["hours"]
-		total_time["minutes"] += time_between["minutes"]
+		total_time["hours"] += int(time_between["hours"])
+		total_time["minutes"] += int(time_between["minutes"])
 		
 	
 	while total_time["minutes"] >= 60:
@@ -167,10 +167,16 @@ func convert_unixtime_to_string_time(unixtime):
 	pass
 	
 func get_time_between_shifts(timeIn, timeOut):
-	if timeIn > timeOut:
-		return 0
-	
 	var return_dict = Dictionary()
+	return_dict["time"] = 0
+	return_dict["report"] = "0"
+	return_dict["hours"] = 0
+	return_dict["minutes"] = 0
+	
+	if timeIn > timeOut:
+		return return_dict
+	
+	
 	
 	var timeWorked = timeOut - timeIn
 	timeWorked = timeWorked/(60.0 * 60.0)
